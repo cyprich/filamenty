@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, jsonify, abort
+from flask import Flask, jsonify
 from typing import Any
 
 fields = (
@@ -26,7 +26,7 @@ def index():
     return jsonify(message="Hello from backend!")
 
 
-@app.route("/filaments")
+@app.route("/filaments/")
 def filaments():
     curs.execute("SELECT * FROM filaments")
     resp = curs.fetchall()
@@ -39,16 +39,16 @@ def filaments():
     return jsonify(filaments=parsed_filaments)
 
 
-@app.route("/filaments/<int:id>")
+@app.route("/filaments/<int:id>/")
 def filament(id: int):
     if id > len(fields):
-        abort(404, description="Filament index out of range")
+        return {"error": "Filament index out of range"}, 404
 
     curs.execute("SELECT * FROM filaments WHERE id=?", (id,))
     resp = curs.fetchone()
 
     if resp is None:
-        abort(404, description="Filament not found")
+        return {"error": "Filament not found"}, 404
 
     return jsonify(filament={fields[i]: resp[i] for i in range(len(fields))})
 
