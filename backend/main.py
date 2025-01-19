@@ -1,7 +1,8 @@
 import sqlite3
+from typing import Any
+
 from flask import Flask, jsonify
 from flask_cors import CORS  # cross-origin resource sharing - for frontend
-from typing import Any
 
 fields = (
     "id",
@@ -23,6 +24,10 @@ app = Flask(__name__)
 CORS(app)
 
 
+def get_conn() -> sqlite3.Connection:
+    return sqlite3.connect("filaments.db", check_same_thread=False)
+
+
 @app.route("/api", methods=["GET"])
 def index():
     return jsonify(message="Hello from backend!")
@@ -30,6 +35,9 @@ def index():
 
 @app.route("/api/filaments/", methods=["GET"])
 def filaments():
+    conn = get_conn()
+    curs = conn.cursor()
+
     curs.execute("SELECT * FROM filaments")
     resp = curs.fetchall()
 
@@ -38,11 +46,15 @@ def filaments():
     for row in resp:
         parsed_filaments.append({fields[i]: row[i] for i in range(len(fields))})
 
+    conn.close()
     return jsonify(filaments=parsed_filaments)
 
 
 @app.route("/api/filaments/<int:id>/", methods=["GET"])
 def filament(id: int):
+    conn = get_conn()
+    curs = conn.cursor()
+
     if id > len(fields):
         return {"error": "Filament index out of range"}, 404
 
@@ -52,13 +64,9 @@ def filament(id: int):
     if resp is None:
         return {"error": "Filament not found"}, 404
 
-    return jsonify(filament={fields[i]: resp[i] for i in range(len(fields))})
+    conn.close()
+    return jsonify(filaments={fields[i]: resp[i] for i in range(len(fields))})
 
 
 if __name__ == "__main__":
-    conn = sqlite3.connect("filaments.db", check_same_thread=False)
-    curs = conn.cursor()
-
     app.run("0.0.0.0", 5000)
-
-    conn.close()

@@ -1,12 +1,16 @@
-//import axios from 'axios';
-
+import {useState, useEffect} from "react";
+import axios from "axios";
 
 function App() {
-    // axios.get("https://localhost:5000/api")
-    //     .then(response => {console.log(response.data)})
-    //     .catch(error => {console.log(error)})
+    const [data, setData] = useState("");
 
-    console.log("Hello")
+    useEffect(() => {
+        axios.get("http://localhost:5000/api/filaments")
+            .then((response) => {setData(response.data)})
+            .catch((error) => {console.log(error)})
+    }, []);
+
+    console.log(data)
 
     return (
         <>
