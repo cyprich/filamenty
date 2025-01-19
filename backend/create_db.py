@@ -100,7 +100,7 @@ add_filament(
     "PolyMaker",
     "PolyTerra PLA",
     19.99,
-    "#e4bd0",
+    "#e4bdd0",
     None,
     False,
     0,

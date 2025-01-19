@@ -1,8 +1,10 @@
 import {useState, useEffect} from "react";
 import axios from "axios";
 
+import Labels from "./Labels"
+
 function App() {
-    const [data, setData] = useState("");
+    const [data, setData] = useState({filaments: []});
 
     useEffect(() => {
         axios.get("http://localhost:5000/api/filaments")
@@ -10,11 +12,10 @@ function App() {
             .catch((error) => {console.log(error)})
     }, []);
 
-    console.log(data)
-
     return (
         <>
             <h1>Filaments</h1>
+            <Labels filaments={data.filaments}/>
         </>
     );
 }
