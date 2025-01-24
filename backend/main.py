@@ -11,12 +11,13 @@ fields = (
     "price",
     "color_hex",
     "color_second_hex",
-    "dark_mode",
     "weight",
     "weight_orig",
     "weight_spool",
     "temp_min",
     "temp_max",
+    "temp_bed_min",
+    "temp_bed_max",
 )
 
 
