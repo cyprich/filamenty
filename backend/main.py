@@ -1,7 +1,7 @@
 import sqlite3
 from typing import Any
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS  # cross-origin resource sharing - for frontend
 
 fields = (
@@ -67,6 +67,11 @@ def filament(id: int):
 
     conn.close()
     return jsonify(filaments={fields[i]: resp[i] for i in range(len(fields))})
+
+
+@app.route("/api/images/<path:filename>", methods=["GET"])
+def get_image(filename: str):
+    return send_from_directory("images/", filename)
 
 
 if __name__ == "__main__":
