@@ -8,6 +8,11 @@
 
 p {line-height: 1.4}
 
+.dimmed-text {
+    color: #aaa;
+    font-weight: normal;
+}
+
 .label table td:first-child {
     padding-right: 0.375em;
 }
