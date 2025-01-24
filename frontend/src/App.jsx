@@ -13,10 +13,10 @@ function App() {
     }, []);
 
     return (
-        <>
-            <h1>Filaments</h1>
+        <div style={{padding: "32px"}}>
+            <h1 style={{paddingBottom: "0.5em"}}>Filaments</h1>
             <Labels filaments={data.filaments}/>
-        </>
+        </div>
     );
 }
 

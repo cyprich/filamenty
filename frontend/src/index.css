@@ -1,0 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    scroll-behavior: smooth;
+    transition: all 0.3s ease 0s;
+}
+
+p {line-height: 1.4}
+
+.label table td:first-child {
+    padding-right: 0.375em;
+}
