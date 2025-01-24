@@ -4,6 +4,12 @@ from typing import Any
 from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS  # cross-origin resource sharing - for frontend
 
+from generate_qrcodes import generate_qrcodes
+
+# re-generate qr codes
+generate_qrcodes()
+
+# items in database
 fields = (
     "id",
     "vendor",
@@ -21,19 +27,23 @@ fields = (
 )
 
 
+# initialize app
 app = Flask(__name__)
 CORS(app)
 
 
+# connects to database and returns the connection
 def get_conn() -> sqlite3.Connection:
     return sqlite3.connect("filaments.db", check_same_thread=False)
 
 
+# /api endpoint
 @app.route("/api", methods=["GET"])
 def index():
     return jsonify(message="Hello from backend!")
 
 
+# endpoint for getting all info about filaments
 @app.route("/api/filaments/", methods=["GET"])
 def filaments():
     conn = get_conn()
@@ -51,6 +61,7 @@ def filaments():
     return jsonify(filaments=parsed_filaments)
 
 
+# endpoint for getting info about specific filament by it's id
 @app.route("/api/filaments/<int:id>/", methods=["GET"])
 def filament(id: int):
     conn = get_conn()
@@ -69,10 +80,12 @@ def filament(id: int):
     return jsonify(filaments={fields[i]: resp[i] for i in range(len(fields))})
 
 
+# endpoint for getting images
 @app.route("/api/images/<path:filename>", methods=["GET"])
 def get_image(filename: str):
     return send_from_directory("images/", filename)
 
 
+# running backend
 if __name__ == "__main__":
     app.run("0.0.0.0", 5000)
