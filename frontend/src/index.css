@@ -3,16 +3,76 @@
     padding: 0;
     font-family: sans-serif;
     scroll-behavior: smooth;
-    transition: all 0.3s ease 0s;
+    transition: all 0.2s ease 0s;
 }
 
-p {line-height: 1.4}
+p {
+    line-height: 1.4
+}
 
 .dimmed-text {
     color: #aaa;
     font-weight: normal;
 }
 
+.filaments-item {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 32px 0;
+    padding: 24px;
+
+    &:last-child {
+        user-select: none;
+        font-size: 3em;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+            background-color: #efefef;
+        }
+
+        &:active {
+            background-color: #e8e8e8;
+        }
+    }
+}
+
+.filaments-buttons img {
+    width: 28px;
+    height: auto;
+
+    &:hover {
+        transform: scale(1.15);
+
+        &:last-child {
+            content: url("./images/delete_red.png");
+        }
+    }
+
+    &:active {
+        transform: scale(0.9);
+    }
+}
+
 .label table td:first-child {
     padding-right: 0.375em;
+}
+
+@media print {
+    @page {
+        margin: 0
+    }
+
+    /*header, footer, aside, form, main, … {*/
+    /*    display: none*/
+    /*}*/
+
+    .no-print, .no-print * {
+        display: none !important;
+    }
 }

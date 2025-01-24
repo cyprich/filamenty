@@ -1,29 +1,31 @@
 import PropTypes from "prop-types";
+import config from "./config.json"
+import FilamentInfo from "./FilamentInfo.jsx";
 
 function Filaments({filaments}) {
+    const IP = config.ip;
+
     return (
-        <div style={{display: "grid", justifyContent: "center", gridTemplateColumns: "repeat(5, 1fr)", gap: "32px"}}>
+        <div style={{display: "grid", justifyContent: "center", gridTemplateColumns: "repeat(5, 1fr)", gap: "32px"}}
+             className={"no-print"}>
             {filaments.map((item, key) => {
                 return (
-                    <div key={key} style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "32px",
-                        alignItems: "center",
-                        border: "1px solid black",
-                        borderRadius: "32px 0",
-                        padding: "24px",
-                        filter: `grayscale(${item.weight === 0 ? "100" : "0"}) blur(${item.weight === 0 ? "1px" : "0"})`,
+                    <div key={key} className={"filaments-item"} style={{
+                        filter: `grayscale(${item.weight === 0 ? "100" : "0"}) opacity(${item.weight === 0 ? "0.5" : "1"})`,
+                        borderWidth: `${item.weight === 0 ? "0" : ""}`,
                         scale: `${item.weight === 0 ? "0.9" : "1"}`
                     }}>
                         <img style={{width: "100%", aspectRatio: "auto", borderRadius: "inherit"}}
-                             src={`http://localhost:5000/api/images/filamenty/${item.id}.png`} alt=""/>
+                             src={`http://${IP}:5000/api/images/filamenty/${item.id}.png`} alt=""/>
                         <div style={{width: "100%", display: "flex", flexDirection: "column", alignItems: "center"}}>
-                            <p style={{ width: "max-content"}}>{Math.max(item.weight - item.weight_spool, 0)} g left</p>
+                            <p style={{
+                                width: "max-content",
+                                paddingBottom: "4px"
+                            }}>{Math.max(item.weight - item.weight_spool, 0)} g left</p>
                             <div style={{
                                 // width: "90%",
-                                width: `${item.weight / item.weight_orig * 0.9 * 100}%`,
-                                height: "3px",
+                                width: `${(item.weight - item.weight_spool) / item.weight_orig * 100}%`,
+                                height: "4px",
                                 background: `linear-gradient(to right, ${item.color_hex}, ${item.color_second_hex || item.color_hex})`,
                                 marginBottom: "-8px"
                             }}/>
@@ -34,35 +36,19 @@ function Filaments({filaments}) {
                                 <h2 className={"dimmed-text"}>#{item.id + 1}</h2>
                             </div>
                             <h3 style={{fontWeight: "500"}}>{item.material}</h3>
-                            <table style={{paddingTop: "8px"}}>
-                                <tbody>
-                                <tr>
-                                    <td>Temp</td>
-                                    <td> : {item.temp_min} - {item.temp_max} °C</td>
-                                </tr>
-                                <tr>
-                                    <td>Bed</td>
-                                    <td> : {item.temp_bed_min} {item.temp_bed_max ? `- ${item.temp_bed_max}` : ""} °C</td>
-                                </tr>
-                                <tr>
-                                    <td>Weight</td>
-                                    <td> : {item.weight_orig / 1000} kg</td>
-                                </tr>
-                                <tr>
-                                    <td>Spool</td>
-                                    <td> : {item.weight_spool} g</td>
-                                </tr>
-                                <tr>
-                                    <td>Price</td>
-                                    <td> : {(item.price / (item.weight_orig / 1000)).toFixed(2)} €/kg</td>
-                                </tr>
-
-                                </tbody>
-                            </table>
+                            <div style={{display: "flex", justifyContent: "space-between", alignItems: "end"}}>
+                                <FilamentInfo item={item}/>
+                                <div className={"filaments-buttons"} style={{display: "flex", flexDirection: "column", alignItems: "end", gap: "8px"}}>
+                                    {/*<img src={"./src/images/add.png"} alt=""/>*/}
+                                    <img src={"./src/images/edit.png"} alt=""/>
+                                    <img src={"./src/images/delete.png"} alt=""/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 )
             })}
+            <div className={"filaments-item"}>+</div>
         </div>
     )
 }

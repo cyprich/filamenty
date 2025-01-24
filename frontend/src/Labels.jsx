@@ -1,6 +1,12 @@
 import PropTypes from "prop-types";
+import config from "./config.json"
+import FilamentInfo from "./FilamentInfo.jsx";
+
+// TODO redo sizes with em units for printing
 
 function Labels({filaments}) {
+    const IP = config.ip;
+
     return (
         <div style={{display: "grid", gridTemplateColumns: "1fr 1fr 1fr", justifyItems: "center", gap: "32px 0"}}>
             {filaments.map((item, key) => (
@@ -26,32 +32,9 @@ function Labels({filaments}) {
                                 <p>{item.vendor}</p>
                             </div>
                         </div>
-                        <table>
-                            <tbody>
-                            <tr>
-                                <td>Temp</td>
-                                <td> : {item.temp_min} - {item.temp_max} °C</td>
-                            </tr>
-                            <tr>
-                                <td>Bed</td>
-                                <td> : {item.temp_bed_min} {item.temp_bed_max ? `- ${item.temp_bed_max}` : ""} °C</td>
-                            </tr>
-                            <tr>
-                                <td>Weight</td>
-                                <td> : {item.weight_orig / 1000} kg</td>
-                            </tr>
-                            <tr>
-                                <td>Spool</td>
-                                <td> : {item.weight_spool} g</td>
-                            </tr>
-                            <tr>
-                                <td>Price</td>
-                                <td> : {(item.price / (item.weight_orig / 1000)).toFixed(2)} €/kg</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <FilamentInfo item={item}/>
                     </div>
-                    <img src={`http://localhost:5000/api/images/qr/${item.id}.png`} alt="" style={{width: "12em", height: "12em", padding: "16px"}}/>
+                    <img src={`http://${IP}:5000/api/images/qr/${item.id}.png`} alt="" style={{width: "12em", height: "12em", padding: "16px"}}/>
                 </div>
             ))}
         </div>
