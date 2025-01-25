@@ -10,6 +10,48 @@ p {
     line-height: 1.4
 }
 
+header {
+    p {
+        color: white;
+        text-decoration: none;
+        padding: 1em;
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.1);
+            font-weight: 500;
+        }
+        &:active {
+            transform: scale(0.9);
+        }
+    }
+
+    img {
+        &:hover {
+            transform: scale(1.1);
+        }
+
+        &:active {
+            transform: scale(0.9);
+        }
+    }
+}
+
+footer {
+    p, h2, a {
+        color: #aaaaaa;
+        text-decoration: none;
+    }
+
+    h2 {
+        font-weight: 800;
+    }
+
+    p, a {
+        font-weight: 300;
+    }
+}
+
 .main {
     display: flex;
     flex-direction: column;
@@ -17,7 +59,7 @@ p {
     gap: 48px;
     padding: 64px;
 
-    &>h1 {
+    & > h1 {
         font-size: 64px;
         width: max-content;
     }
@@ -82,9 +124,9 @@ p {
         margin: 0
     }
 
-    /*header, footer, aside, form, main, … {*/
-    /*    display: none*/
-    /*}*/
+    header, footer {
+        display: none !important;
+    }
 
     .no-print, .no-print * {
         display: none !important;

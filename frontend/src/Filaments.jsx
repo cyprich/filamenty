@@ -7,9 +7,8 @@ function Filaments({filaments}) {
 
     return (
         <div className={"main"}>
-            <h1 className={"no-print"}>Filamenty</h1>
-            <div style={{display: "grid", justifyContent: "center", gridTemplateColumns: "repeat(5, 1fr)", gap: "32px"}}
-                 className={"no-print"}>
+            <h1>Filamenty</h1>
+            <div style={{display: "grid", justifyContent: "center", gridTemplateColumns: "repeat(5, 1fr)", gap: "32px"}}>
                 {filaments.map((item, key) => {
                     return (
                         <div key={key} className={"filaments-item"} style={{
