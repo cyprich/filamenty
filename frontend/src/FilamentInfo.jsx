@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 function FilamentInfo({item}) {
    return (
-       <table>
+       <table className={"filament-info"}>
            <tbody>
            <tr>
                <td>Temp</td>

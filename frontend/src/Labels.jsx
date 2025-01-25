@@ -8,35 +8,48 @@ function Labels({filaments}) {
     const IP = config.ip;
 
     return (
-        <div style={{display: "grid", gridTemplateColumns: "1fr 1fr 1fr", justifyItems: "center", gap: "32px 0"}}>
-            {filaments.map((item, key) => (
-                <div key={key} style={{scale: "0.9", display: "flex", alignItems: "center", gap: "48px", border: "1px solid black", padding: "32px", width: "max-content"}}>
-                    <div className={"label"} style={{
+        <div className={"main"}>
+            <h1 className={"no-print"}>Štítky</h1>
+            <div style={{display: "grid", gridTemplateColumns: "1fr 1fr 1fr", justifyItems: "center", gap: "32px 0"}}>
+                {filaments.map((item, key) => (
+                    <div key={key} style={{
+                        scale: "0.9",
                         display: "flex",
-                        flexDirection: "column",
-                        gap: "1em",
+                        alignItems: "center",
+                        gap: "48px",
+                        border: "1px solid black",
+                        padding: "32px",
+                        width: "max-content"
                     }}>
-                        <div style={{display: "flex", alignItems: "center", gap: "24px", width: "max-content"}}>
-                            <div
-                                style={{
-                                    background: `linear-gradient(135deg, ${item.color_hex}, ${item.color_second_hex || item.color_hex})`,
-                                    width: "72px",
-                                    height: "72px",
-                                    borderRadius: "50%",
-                                }}
-                            />
-                            <div style={{display: "flex", flexDirection: "column", gap: "0px"}}>
-                                <h2>{item.material}
-                                    <span className={"dimmed-text"} style={{paddingLeft: "16px",}}>#{item.id + 1}</span>
-                                </h2>
-                                <p>{item.vendor}</p>
+                        <div className={"label"} style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "1em",
+                        }}>
+                            <div style={{display: "flex", alignItems: "center", gap: "24px", width: "max-content"}}>
+                                <div
+                                    style={{
+                                        background: `linear-gradient(135deg, ${item.color_hex}, ${item.color_second_hex || item.color_hex})`,
+                                        width: "72px",
+                                        height: "72px",
+                                        borderRadius: "50%",
+                                    }}
+                                />
+                                <div style={{display: "flex", flexDirection: "column", gap: "0px"}}>
+                                    <h2>{item.material}
+                                        <span className={"dimmed-text"}
+                                              style={{paddingLeft: "16px",}}>#{item.id + 1}</span>
+                                    </h2>
+                                    <p>{item.vendor}</p>
+                                </div>
                             </div>
+                            <FilamentInfo item={item}/>
                         </div>
-                        <FilamentInfo item={item}/>
+                        <img src={`http://${IP}:5000/api/images/qr/${item.id}.png`} alt=""
+                             style={{width: "12em", height: "12em", padding: "16px"}}/>
                     </div>
-                    <img src={`http://${IP}:5000/api/images/qr/${item.id}.png`} alt="" style={{width: "12em", height: "12em", padding: "16px"}}/>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     );
 }

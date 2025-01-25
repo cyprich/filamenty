@@ -1,4 +1,5 @@
 import {useState, useEffect} from "react";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import axios from "axios";
 
 import Labels from "./Labels"
@@ -11,17 +12,21 @@ function App() {
 
     useEffect(() => {
         axios.get(`http://${IP}:5000/api/filaments`)
-            .then((response) => {setData(response.data)})
-            .catch((error) => {console.log(error)})
+            .then((response) => {
+                setData(response.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }, []);
 
     return (
-        <div style={{display: "flex", flexDirection: "column", alignItems: "center", gap: "8em", padding: "8em 8em 0 8em"}}>
-            <h1 style={{fontSize: "64px", width: "max-content"}} className={"no-print"}>Filamenty</h1>
-            <Filaments filaments={data.filaments}/>
-            <h1 style={{fontSize: "64px", width: "max-content"}} className={"no-print"}>Štítky</h1>
-            <Labels filaments={data.filaments}/>
-        </div>
+        <Router>
+            <Routes>
+                <Route path={"/"} element={<Filaments filaments={data.filaments}/>}/>
+                <Route path={"/stitky"} element={<Labels filaments={data.filaments}/>}/>
+            </Routes>
+        </Router>
     );
 }
 
