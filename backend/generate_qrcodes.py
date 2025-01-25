@@ -26,11 +26,15 @@ def generate_qrcodes():
 
     # get filaments from db and make qrcode for each one of them
     curs.execute("SELECT * FROM filaments")
-    for filament in curs.fetchall():
+
+    for i in curs.fetchall():
+        # data inside QR code
+        DATA = f"{URL}/images/filamenty/{i[0]}.png"
+
         # create qrcode
-        qr = qrcode.QRCode(version=None, border=0)
-        qr.add_data(f"{URL}{DIRECTORY}{filament[0]}.png")
+        qr = qrcode.QRCode(version=None, border=0)  # auto size, no padding
+        qr.add_data(DATA)  # QR code data
         qr.make(fit=True)
 
         img = qr.make_image(fill_color="black", back_color="white")  # make image
-        img.save(f"{DIRECTORY}{filament[0]}.png")  # save image
+        img.save(f"{DIRECTORY}{i[0]}.png")  # save image
