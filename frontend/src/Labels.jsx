@@ -1,11 +1,22 @@
-import PropTypes from "prop-types";
-import config from "./config.json"
+import {useEffect, useState} from "react";
+
 import FilamentInfo from "./FilamentInfo.jsx";
+import config from "./config.json"
+import axios from "axios";
 
 // TODO redo sizes with em units for printing
 
-function Labels({filaments}) {
+function Labels() {
     const IP = config.ip;
+    const [filaments, setfilaments] = useState([])
+
+    useEffect(() => {
+        axios.get(`http://${IP}:5000/api/filaments`)
+            .then((response) => {
+                setfilaments(response.data.filaments)
+            })
+            .catch((error) => console.error(error))
+    }, [IP]);
 
     return (
         <div className={"main"}>
@@ -53,25 +64,6 @@ function Labels({filaments}) {
         </div>
     );
 }
-
-Labels.propTypes = {
-    filaments: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        vendor: PropTypes.string.isRequired,
-        material: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        color_hex: PropTypes.string.isRequired,
-        color_second_hex: PropTypes.string,
-        weight: PropTypes.number.isRequired,
-        weight_orig: PropTypes.number.isRequired,
-        weight_spool: PropTypes.number.isRequired,
-        temp_min: PropTypes.number.isRequired,
-        temp_max: PropTypes.number.isRequired,
-        temp_bed_min: PropTypes.number.isRequired,
-        temp_bed_max: PropTypes.number,
-    })).isRequired
-};
-
 
 export default Labels;
 

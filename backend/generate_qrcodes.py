@@ -17,9 +17,6 @@ def generate_qrcodes():
     with open("./config.json", "r") as file:
         IP = json.load(file)["ip"]
 
-    # URL address with IP
-    URL = f"http://{IP}:5000/api/"
-
     # create directory if it doesnt exist
     DIRECTORY = "images/qr/"
     os.makedirs(DIRECTORY, exist_ok=True)
@@ -29,7 +26,7 @@ def generate_qrcodes():
 
     for i in curs.fetchall():
         # data inside QR code
-        DATA = f"{URL}/images/filamenty/{i[0]}.png"
+        DATA = f"http://{IP}:3000/filament/{i[0] + 1}"
 
         # create qrcode
         qr = qrcode.QRCode(version=None, border=0)  # auto size, no padding

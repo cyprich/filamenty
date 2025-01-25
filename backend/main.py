@@ -67,7 +67,7 @@ def filament(id: int):
     conn = get_conn()
     curs = conn.cursor()
 
-    if id > len(fields):
+    if id > len(fields) + 1:
         return {"error": "Filament index out of range"}, 404
 
     curs.execute("SELECT * FROM filaments WHERE id=?", (id,))

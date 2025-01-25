@@ -1,23 +1,40 @@
-import PropTypes from "prop-types";
-import config from "./config.json"
-import FilamentInfo from "./FilamentInfo.jsx";
+import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
-function Filaments({filaments}) {
+import FilamentInfo from "./FilamentInfo.jsx";
+import config from "./config.json"
+
+function Filaments() {
     const IP = config.ip;
+    const [filaments, setfilaments] = useState([])
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        axios.get(`http://${IP}:5000/api/filaments`)
+            .then((response) => {
+                setfilaments(response.data.filaments)
+            })
+            .catch((error) => console.error(error))
+    }, [IP]);
 
     return (
         <div className={"main"}>
             <h1>Filamenty</h1>
-            <div style={{display: "grid", justifyContent: "center", gridTemplateColumns: "repeat(5, 1fr)", gap: "32px"}}>
+            <div
+                style={{display: "grid", justifyContent: "center", gridTemplateColumns: "repeat(5, 1fr)", gap: "32px"}}>
                 {filaments.map((item, key) => {
                     return (
-                        <div key={key} className={"filaments-item"} style={{
+                        <div key={key} className={"filaments-item custom-border"} style={{
                             filter: `grayscale(${item.weight === 0 ? "100" : "0"}) opacity(${item.weight === 0 ? "0.5" : "1"})`,
                             borderWidth: `${item.weight === 0 ? "0" : ""}`,
                             scale: `${item.weight === 0 ? "0.9" : "1"}`
                         }}>
-                            <img style={{width: "100%", aspectRatio: "auto", borderRadius: "inherit"}}
-                                 src={`http://${IP}:5000/api/images/filamenty/${item.id}.png`} alt=""/>
+                            <img
+                                style={{width: "100%", aspectRatio: "auto", borderRadius: "inherit", cursor: "pointer"}}
+                                src={`http://${IP}:5000/api/images/filamenty/${item.id}.png`} alt=""
+                                onClick={() => navigate(`/filament/${item.id + 1}`)}/>
                             <div
                                 style={{width: "100%", display: "flex", flexDirection: "column", alignItems: "center"}}>
                                 <p style={{
@@ -46,7 +63,8 @@ function Filaments({filaments}) {
                                         alignItems: "end",
                                         gap: "8px"
                                     }}>
-                                        <img src={"./src/images/edit.png"} alt=""/>
+                                        <img src={"./src/images/edit.png"} alt=""
+                                             onClick={() => navigate(`/filament/${item.id + 1}`)}/>
                                         <img src={"./src/images/delete.png"} alt=""/>
                                     </div>
                                 </div>
@@ -55,27 +73,9 @@ function Filaments({filaments}) {
                     )
                 })}
             </div>
-            <div className={"filaments-item plus"}>+</div>
+            <div className={"filaments-item custom-border plus"}>+</div>
         </div>
     )
 }
-
-Filaments.propTypes = {
-    filaments: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        vendor: PropTypes.string.isRequired,
-        material: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        color_hex: PropTypes.string.isRequired,
-        color_second_hex: PropTypes.string,
-        weight: PropTypes.number.isRequired,
-        weight_orig: PropTypes.number.isRequired,
-        weight_spool: PropTypes.number.isRequired,
-        temp_min: PropTypes.number.isRequired,
-        temp_max: PropTypes.number.isRequired,
-        temp_bed_min: PropTypes.number.isRequired,
-        temp_bed_max: PropTypes.number,
-    })).isRequired
-};
 
 export default Filaments

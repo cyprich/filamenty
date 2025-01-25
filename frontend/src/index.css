@@ -21,6 +21,7 @@ header {
             transform: scale(1.1);
             font-weight: 500;
         }
+
         &:active {
             transform: scale(0.9);
         }
@@ -70,13 +71,16 @@ footer {
     font-weight: normal;
 }
 
+.custom-border {
+    border-radius: 32px 0;
+}
+
 .filaments-item {
     display: flex;
     flex-direction: column;
     gap: 32px;
     align-items: center;
     border: 1px solid black;
-    border-radius: 32px 0;
     padding: 24px;
 
     &.plus {
@@ -117,6 +121,49 @@ footer {
 
 .filament-info td:first-child {
     padding-right: 0.5em;
+}
+
+.filament {
+    table {
+        border-collapse: collapse;
+
+        tbody {
+            tr:nth-child(even) {
+                background-color: #eee;
+            }
+
+            td {
+                padding: 12px;
+            }
+
+            img {
+                &:hover {
+                    transform: scale(1.1);
+                }
+
+                &:active {
+                    transform: scale(0.9);
+                }
+            }
+        }
+
+        tfoot {
+            cursor: pointer;
+
+            &:hover p {
+                color: #da0000;
+            }
+
+            img {
+                filter: saturate(0);
+            }
+
+            &:hover img {
+                filter: saturate(1);
+            }
+        }
+
+    }
 }
 
 @media print {
