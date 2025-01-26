@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
+import json
+import random
 import sqlite3
 from typing import Any
 
+import requests
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
-from werkzeug.wrappers import response
 
 from generate_qrcodes import generate_qrcodes
 
@@ -29,6 +31,10 @@ fields = (
     "temp_bed_max",
     "image_url",
 )
+
+# get server ip
+with open("config.json", "r") as file:
+    IP = json.load(file)["ip"]
 
 
 # initialize app
@@ -82,6 +88,32 @@ def filament(id: int):
 
     conn.close()
     return jsonify(filaments={fields[i]: resp[i] for i in range(len(fields))})
+
+
+# endpoint for getting info about random filament
+@app.route("/api/filaments/random/", methods=["GET"])
+def filament_random():
+    conn = get_conn()
+    curs = conn.cursor()
+
+    # get all ids
+    response = requests.get(f"http://{IP}:5000/api/info/")
+
+    if response.status_code != 200:
+        return {"error": "Failed to get info"}, 500
+
+    id = random.choice(response.json()["ids"])
+
+    return requests.get(f"http://{IP}:5000/api/filaments/{id}/").json()
+
+    # curs.execute("SELECT * FROM filaments WHERE id=?", (id,))
+    # resp = curs.fetchone()
+    #
+    # if resp is None:
+    #     return {"error": "Filament not found"}, 404
+    #
+    # conn.close()
+    # return jsonify(filaments={fields[i]: resp[i] for i in range(len(fields))})
 
 
 # # endpoint for adding filaments
@@ -154,6 +186,24 @@ def filament_delete(id: int):
     conn.close()
 
     return jsonify(filaments={fields[i]: resp[i] for i in range(len(fields))})
+
+
+# endpoint for info about filments in database
+@app.route("/api/info/", methods=["GET"])
+def info():
+    conn = get_conn()
+    curs = conn.cursor()
+
+    curs.execute("SELECT * FROM filaments")
+    data = curs.fetchall()
+
+    ids = [i[0] for i in data]
+
+    return {
+        "filament_count": len(data),
+        "ids": ids,
+        "invalid_ids": [i for i in range(len(data)) if i not in ids],
+    }
 
 
 # endpoint for getting images

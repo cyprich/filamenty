@@ -21,6 +21,7 @@ def generate_qrcodes():
 
     # create directory if it doesnt exist
     DIRECTORY = "images/qr/"
+    os.removedirs(DIRECTORY)
     os.makedirs(DIRECTORY, exist_ok=True)
 
     # get filaments from db and make qrcode for each one of them
