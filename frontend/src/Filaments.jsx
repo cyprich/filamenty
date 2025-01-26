@@ -97,7 +97,7 @@ function Filaments() {
                 {showDelete &&
                     <DeleteFilament id={deleteFilamentID} image_url={deleteFilamentURL} setShowDelete={setShowDelete}/>}
             </div>
-            <div className={"filaments-item custom-border plus"}>+</div>
+            <div className={"custom-border plus"} onClick={() => navigate("/novy")}><p>+</p></div>
         </div>
     )
 }

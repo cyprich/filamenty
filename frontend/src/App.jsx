@@ -4,6 +4,7 @@ import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import Filaments from "./Filaments.jsx";
 import Filament from "./Filament.jsx";
+import AddFilament from "./AddFilament.jsx"
 import Labels from "./Labels"
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
             <Header/>
             <Routes>
                 <Route path={"/"} element={<Filaments/>}/>
+                <Route path={"/novy"} element={<AddFilament/>}/>
                 <Route path={"/stitky"} element={<Labels/>}/>
                 <Route path={"/filament/:id"} element={<Filament/>}/>
 

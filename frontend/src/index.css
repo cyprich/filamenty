@@ -75,6 +75,56 @@ footer {
     border-radius: 32px 0;
 }
 
+.custom-upload {
+    padding: 2em;
+    width: 36em;
+    height: 36em;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    input {
+        display: none;
+    }
+
+    label {
+        cursor: pointer;
+        /*background-color: rgb(245, 245, 245);*/
+        background-image: linear-gradient(45deg, #efefef, #dedede, #efefef);
+        border-radius: inherit;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-style: italic;
+        font-weight: 300;
+    }
+}
+
+.plus {
+    display: flex;
+    justify-content: center;
+    padding: 1em 10em;
+    border: 1px solid black;
+    cursor: pointer;
+    user-select: none;
+
+    p {
+        font-size: 3em;
+        font-weight: 300;
+    }
+
+    &:hover {
+        background-color: #ddd;
+    }
+
+    &:active {
+        background-color: #ccc;
+    }
+}
+
 .filaments-item {
     display: flex;
     flex-direction: column;
@@ -82,24 +132,6 @@ footer {
     align-items: center;
     border: 1px solid black;
     padding: 24px;
-
-    &.plus {
-        user-select: none;
-        font-size: 3em;
-        font-weight: bold;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0.5em 4em;
-
-        &:hover {
-            background-color: #efefef;
-        }
-
-        &:active {
-            background-color: #e8e8e8;
-        }
-    }
 }
 
 .filaments-buttons img {
@@ -124,6 +156,12 @@ footer {
 }
 
 .filament {
+    display: flex;
+    gap: 40px;
+    padding: 6em 8em;
+    max-width: 90vw;
+    min-height: 70vh;
+
     table {
         border-collapse: collapse;
 
@@ -165,6 +203,25 @@ footer {
 
     }
 }
+
+.add-filament {
+    td:has(input) {
+        display: flex;
+        gap: 8px;
+
+        button {
+            width: 3em;
+        }
+    }
+
+    input {
+        width: 100%;
+        padding: 4px;
+        outline: none;
+    }
+
+}
+
 
 @media print {
     @page {

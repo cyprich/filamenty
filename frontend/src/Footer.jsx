@@ -7,7 +7,7 @@ function Footer() {
             </div>
             <div style={{display: "flex", flexDirection: "column"}}>
                 <p style={{fontSize: "1.2em"}}>Peter Cyprich</p>
-                <a href={"mailto:cypooriginal@gmail.com"} target={"_blank"}> cypooriginal@gmail.com</a>
+                <a href={"mailto:cypooriginal@gmail.com"} target={"_blank"}>cypooriginal@gmail.com</a>
                 <a href={"mailto:cyprich6@stud.uniza.sk"} target={"_blank"}>cyprich6@stud.uniza.sk</a>
             </div>
         </footer>

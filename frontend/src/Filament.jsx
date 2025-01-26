@@ -5,6 +5,8 @@ import config from "./config.json";
 import EditFilament from "./EditFilament.jsx";
 import DeleteFilament from "./DeleteFilament.jsx";
 
+// TODO make user able to change color
+
 function Filament() {
     const IP = config.ip;
     const {id} = useParams();
@@ -29,8 +31,7 @@ function Filament() {
     }
 
     return (
-        <div className={"filament"}
-             style={{display: "flex", gap: "40px", padding: "6em 8em", maxWidth: "90vw", minHeight: "70vh"}}>
+        <div className={"filament"}>
             {
                 responseCode === 200
                     ?
