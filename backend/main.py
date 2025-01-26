@@ -48,7 +48,7 @@ def get_conn() -> sqlite3.Connection:
 
 
 # /api endpoint
-@app.route("/api", methods=["GET"])
+@app.route("/api/", methods=["GET"])
 def index():
     return jsonify(message="Hello from backend!")
 
