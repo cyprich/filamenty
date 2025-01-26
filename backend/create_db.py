@@ -2,10 +2,12 @@ import json
 import os
 import sqlite3
 
+from update_db_image_url import update_db_image_url
+
 # remove old db
 os.remove("filaments.db")
 
-# opening db
+# creating db
 conn = sqlite3.connect("filaments.db")
 curs = conn.cursor()
 
@@ -199,18 +201,8 @@ add_filament(
     "Filament PM", "PLA+", 12.99, "#a69281", None, 503, 500, 216, 190, 210, 60, None
 )
 
-# finding out server ip
-with open("config.json", "r") as file:
-    IP = json.load(file)["ip"]
-
-# inserting default image urls
-curs.execute("SELECT * FROM filaments")
-for i in curs.fetchall():
-    id = i[0]
-    curs.execute(
-        "UPDATE filaments SET image_url = ? WHERE id = ?",
-        (f"http://{IP}:5000/api/images/filaments/{id}.png", id),
-    )
+# setting image urls
+update_db_image_url()
 
 # comminting to db
 conn.commit()

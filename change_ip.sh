@@ -10,3 +10,7 @@ files=("./backend/config.json" "./frontend/src/config.json")
 for i in "${files[@]}"; do
     echo -e "{\n    \"ip\": \"${ip}\"\n}" >$i
 done
+
+# update image urls in database
+cd backend
+python3 update_db_image_url.py
