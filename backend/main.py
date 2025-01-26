@@ -3,6 +3,7 @@ from typing import Any
 
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
+from werkzeug.wrappers import response
 
 from generate_qrcodes import generate_qrcodes
 
@@ -124,6 +125,29 @@ def filament_put(id: int):
 
     curs.execute("SELECT * FROM filaments WHERE id = ?", (id,))
     resp = curs.fetchone()
+
+    conn.close()
+
+    return jsonify(filaments={fields[i]: resp[i] for i in range(len(fields))})
+
+
+# endpoint for deleting filaments
+@app.route("/api/filaments/<int:id>/", methods=["DELETE"])
+def filament_delete(id: int):
+    conn = get_conn()
+    curs = conn.cursor()
+
+    if id > len(fields) + 1:
+        return {"error": "Filament index out of range"}, 404
+
+    curs.execute("SELECT * FROM filaments WHERE id = ?", (id,))
+    resp = curs.fetchone()
+
+    if resp is None:
+        return {"error": "Filament not found"}, 404
+
+    curs.execute("DELETE FROM filaments WHERE id = ?", (id,))
+    conn.commit()
 
     conn.close()
 

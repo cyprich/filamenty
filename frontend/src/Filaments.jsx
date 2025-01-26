@@ -3,12 +3,16 @@ import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
 import config from "./config.json"
+import DeleteFilament from "./DeleteFilament.jsx";
 
 function Filaments() {
+    const navigate = useNavigate();
+
     const IP = config.ip;
     const [filaments, setfilaments] = useState([])
 
-    const navigate = useNavigate();
+    const [showDelete, setShowDelete] = useState(false)
+    const [deleteFilamentURL, setDeleteFilamentURL] = useState("")
 
     useEffect(() => {
         axios.get(`http://${IP}:5000/api/filaments/`)
@@ -78,13 +82,17 @@ function Filaments() {
                                     }}>
                                         <img src={"./src/images/edit.png"} alt=""
                                              onClick={() => navigate(`/filament/${item.id}`)}/>
-                                        <img src={"./src/images/delete.png"} alt=""/>
+                                        <img src={"./src/images/delete.png"} alt="" onClick={() => {
+                                            setShowDelete(true)
+                                            setDeleteFilamentURL(item.image_url)
+                                        }}/>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     )
                 })}
+                {showDelete && <DeleteFilament image_url={deleteFilamentURL} setShowDelete={setShowDelete} />}
             </div>
             <div className={"filaments-item custom-border plus"}>+</div>
         </div>

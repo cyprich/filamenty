@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import axios from "axios";
 import config from "./config.json";
 import EditFilament from "./EditFilament.jsx";
+import DeleteFilament from "./DeleteFilament.jsx";
 
 function Filament() {
     const IP = config.ip;
@@ -10,6 +11,8 @@ function Filament() {
 
     const [filament, setfilament] = useState([])
     const [responseCode, setResponseCode] = useState(0)
+
+    const [showDelete, _setShowDelete] = useState(false)
 
     useEffect(() => {
         axios.get(`http://${IP}:5000/api/filaments/${id}/`)
@@ -19,6 +22,11 @@ function Filament() {
             })
             .catch((error) => console.error(error))
     }, [IP, id]);
+
+    function setShowDelete(state) {
+        _setShowDelete(!showDelete);
+        _setShowDelete(state)
+    }
 
     return (
         <div className={"filament"}
@@ -74,7 +82,8 @@ function Filament() {
                                     <tr>
                                         <td><b>Zostávajúca hmotnosť</b></td>
                                         <td><b>: {Math.max(filament.weight - filament.weight_spool, 0)} g</b></td>
-                                        <EditFilament id={id} fieldName={"weight_full"} additional_data={filament.weight_spool}/>
+                                        <EditFilament id={id} fieldName={"weight_full"}
+                                                      additional_data={filament.weight_spool}/>
                                     </tr>
                                     <tr>
                                         <td>Hmotnosť so spoolom</td>
@@ -100,7 +109,8 @@ function Filament() {
                                         filament.weight_orig !== 1000 && <tr>
                                             <td>Cena za 1kg</td>
                                             <td>: {(filament.price / (filament.weight_orig / 1000)).toFixed(2)} €/kg</td>
-                                            <EditFilament id={id} fieldName={"price_kg"} additional_data={filament.weight_orig}/>
+                                            <EditFilament id={id} fieldName={"price_kg"}
+                                                          additional_data={filament.weight_orig}/>
                                         </tr>
                                     }
                                     </tbody>
@@ -112,7 +122,10 @@ function Filament() {
                                             gap: "4px",
                                             marginTop: "16px",
                                             padding: "0",
-                                        }}>
+                                        }}
+                                            onClick={() => {
+                                                setShowDelete(true)
+                                            }}>
                                             <img style={{width: "32px"}} src="/src/images/delete_red.png" alt=""/>
                                             <p>Odstrániť</p>
                                         </td>
@@ -122,6 +135,7 @@ function Filament() {
                                 <div>
                                 </div>
                             </div>
+                            {showDelete && <DeleteFilament image_url={filament.image_url} setShowDelete={setShowDelete}/>}
                         </div>
                     </>
                     : <div style={{
