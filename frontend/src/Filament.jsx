@@ -74,7 +74,7 @@ function Filament() {
                                     <tr>
                                         <td><b>Zostávajúca hmotnosť</b></td>
                                         <td><b>: {Math.max(filament.weight - filament.weight_spool, 0)} g</b></td>
-                                        <EditFilament id={id} fieldName={"weight"} spoolWeight={filament.weight_spool}/>
+                                        <EditFilament id={id} fieldName={"weight_full"} additional_data={filament.weight_spool}/>
                                     </tr>
                                     <tr>
                                         <td>Hmotnosť so spoolom</td>
@@ -100,6 +100,7 @@ function Filament() {
                                         filament.weight_orig !== 1000 && <tr>
                                             <td>Cena za 1kg</td>
                                             <td>: {(filament.price / (filament.weight_orig / 1000)).toFixed(2)} €/kg</td>
+                                            <EditFilament id={id} fieldName={"price_kg"} additional_data={filament.weight_orig}/>
                                         </tr>
                                     }
                                     </tbody>

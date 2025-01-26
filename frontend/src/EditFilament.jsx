@@ -2,21 +2,34 @@ import config from "./config.json"
 import {useState} from "react";
 import axios from "axios";
 
-function EditFilament({id, fieldName, spoolWeight}) {
+function EditFilament({id, fieldName, additional_data}) {
     const IP = config.ip;
     const [toggleEdit, setToggleEdit] = useState(false)
     const [value, setValue] = useState(0)
 
-    function handleChange() {
-        console.log(fieldName)
+    function generate_data() {
+        if (fieldName === 'weight_full') {
+            return {
+                key: "weight",
+                value: value + additional_data
+            }
+        } else if (fieldName === "price_kg") {
+            return {
+                key: "price",
+                value: value * (additional_data / 1000)
+            }
+        } else {
+            return {
+                key: fieldName,
+                value: value
+            }
+        }
+    }
 
-        axios.put(`http://${IP}:5000/api/filaments/${id}/`, {
-            key: fieldName,
-            value: ((fieldName === "weight" && spoolWeight > 0) ? value + spoolWeight : value)
-        })
+    function handleChange() {
+        axios.put(`http://${IP}:5000/api/filaments/${id}/`, generate_data())
             .then((response) => {
                 console.log(response);
-                setToggleEdit(false);
                 window.location.reload()
             })
             .catch((error) => {
