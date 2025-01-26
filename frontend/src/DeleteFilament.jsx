@@ -1,6 +1,14 @@
+import axios from "axios"
 import {useEffect} from "react";
 
-function DeleteFilament({image_url, setShowDelete}) {
+import config from "./config.json";
+import {useNavigate} from "react-router-dom";
+
+function DeleteFilament({id, image_url, setShowDelete}) {
+    const IP = config.ip
+
+    let navigate = useNavigate();
+
     useEffect(() => {
         document.body.style.overflow = "hidden"
 
@@ -8,6 +16,17 @@ function DeleteFilament({image_url, setShowDelete}) {
             document.body.style.overflow = "auto"
         }
     }, []);
+
+    function handleDelete() {
+        axios.delete(`http://${IP}:5000/api/filaments/${id}/`)
+            .then((response) => {
+                    console.log(response);
+                    navigate("/");
+                    window.location.reload();
+                }
+            )
+            .catch((error) => console.error(error))
+    }
 
     return (
         <div style={{
@@ -28,7 +47,9 @@ function DeleteFilament({image_url, setShowDelete}) {
                 alignItems: "center",
                 gap: "1em",
                 padding: "32px",
-                backgroundColor: "white"
+                backgroundColor: "white",
+                outline: "1px solid white",
+                outlineOffset: "8px"
             }} className={"custom-border"}>
                 <h2>Odstrániť?</h2>
                 <img src={image_url} alt="" style={{width: "16em", height: "auto"}}/>
@@ -37,7 +58,7 @@ function DeleteFilament({image_url, setShowDelete}) {
                     <p>Tento krok sa nedá vrátiť späť</p>
                 </div>
                 <div style={{display: "flex", gap: "1em"}}>
-                    <button>Vymazať</button>
+                    <button onClick={() => handleDelete()}>Odtrániť</button>
                     <button onClick={() => setShowDelete(false)}>Zrušiť</button>
                 </div>
             </div>

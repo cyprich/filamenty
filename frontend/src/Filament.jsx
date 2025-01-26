@@ -135,7 +135,7 @@ function Filament() {
                                 <div>
                                 </div>
                             </div>
-                            {showDelete && <DeleteFilament image_url={filament.image_url} setShowDelete={setShowDelete}/>}
+                            {showDelete && <DeleteFilament id={filament.id} image_url={filament.image_url} setShowDelete={setShowDelete}/>}
                         </div>
                     </>
                     : <div style={{

@@ -12,6 +12,7 @@ function Filaments() {
     const [filaments, setfilaments] = useState([])
 
     const [showDelete, setShowDelete] = useState(false)
+    const [deleteFilamentID, setDeleteFilamentID] = useState(0)
     const [deleteFilamentURL, setDeleteFilamentURL] = useState("")
 
     useEffect(() => {
@@ -84,6 +85,7 @@ function Filaments() {
                                              onClick={() => navigate(`/filament/${item.id}`)}/>
                                         <img src={"./src/images/delete.png"} alt="" onClick={() => {
                                             setShowDelete(true)
+                                            setDeleteFilamentID(item.id)
                                             setDeleteFilamentURL(item.image_url)
                                         }}/>
                                     </div>
@@ -92,7 +94,8 @@ function Filaments() {
                         </div>
                     )
                 })}
-                {showDelete && <DeleteFilament image_url={deleteFilamentURL} setShowDelete={setShowDelete} />}
+                {showDelete &&
+                    <DeleteFilament id={deleteFilamentID} image_url={deleteFilamentURL} setShowDelete={setShowDelete}/>}
             </div>
             <div className={"filaments-item custom-border plus"}>+</div>
         </div>
