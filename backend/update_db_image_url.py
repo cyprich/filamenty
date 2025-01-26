@@ -1,11 +1,8 @@
 import json
 import sqlite3
 
-conn = sqlite3.connect("filaments.db")
-curs = conn.cursor()
 
-
-def update_db_image_url():
+def update_db_image_url(conn: sqlite3.Connection, curs: sqlite3.Cursor):
     # finding out server ip
     with open("config.json", "r") as file:
         IP = json.load(file)["ip"]
@@ -18,3 +15,5 @@ def update_db_image_url():
             "UPDATE filaments SET image_url = ? WHERE id = ?",
             (f"http://{IP}:5000/api/images/filaments/{id}.png", id),
         )
+
+    conn.commit()

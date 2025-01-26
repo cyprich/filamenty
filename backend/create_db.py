@@ -202,7 +202,7 @@ add_filament(
 )
 
 # setting image urls
-update_db_image_url()
+update_db_image_url(conn, curs)
 
 # comminting to db
 conn.commit()
