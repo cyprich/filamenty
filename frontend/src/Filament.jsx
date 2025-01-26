@@ -12,7 +12,7 @@ function Filament() {
     const [responseCode, setResponseCode] = useState(0)
 
     useEffect(() => {
-        axios.get(`http://${IP}:5000/api/filaments/${id - 1}`)
+        axios.get(`http://${IP}:5000/api/filaments/${id - 1}/`)
             .then((response) => {
                 setfilament(response.data.filaments)
                 setResponseCode(response.status)
@@ -52,50 +52,54 @@ function Filament() {
                                     <tr>
                                         <td>Minimálna teplota tlače</td>
                                         <td>: {filament.temp_min} °C</td>
-                                        <EditFilament/>
+                                        <EditFilament id={id} fieldName={"temp_min"}/>
                                     </tr>
                                     <tr>
                                         <td>Maximálna teplota tlače</td>
                                         <td>: {filament.temp_max} °C</td>
-                                        <EditFilament/>
+                                        <EditFilament id={id} fieldName={"temp_max"}/>
                                     </tr>
                                     <tr>
                                         <td>{filament.temp_bed_max ? "Minimálna t" : "T"}eplota podložky</td>
                                         <td>: {filament.temp_bed_min} °C</td>
-                                        <EditFilament/>
+                                        <EditFilament id={id} fieldName={"temp_bed_min"}/>
                                     </tr>
                                     {
                                         filament.temp_bed_max && <tr>
                                             <td>Maximálna teplota podložky</td>
                                             <td>: {filament.temp_bed_max} °C</td>
-                                            <EditFilament/>
+                                            <EditFilament id={id} fieldName={"temp_bed_max"}/>
                                         </tr>
                                     }
                                     <tr>
                                         <td><b>Zostávajúca hmotnosť</b></td>
                                         <td><b>: {Math.max(filament.weight - filament.weight_spool, 0)} g</b></td>
-                                        <EditFilament/>
+                                        <EditFilament id={id} fieldName={"weight"} spoolWeight={filament.weight_spool}/>
                                     </tr>
                                     <tr>
-                                        <td>Pôvodná hmotnosť</td>
-                                        <td>: {filament.weight_orig} g</td>
-                                        <EditFilament/>
+                                        <td>Hmotnosť so spoolom</td>
+                                        <td>: {filament.weight} g</td>
+                                        <EditFilament id={id} fieldName={"weight"}/>
                                     </tr>
                                     <tr>
                                         <td>Hmotnosť spoolu</td>
                                         <td>: {filament.weight_spool} g</td>
-                                        <EditFilament/>
+                                        <EditFilament id={id} fieldName={"weight_spool"}/>
+                                    </tr>
+                                    <tr>
+                                        <td>Pôvodná hmotnosť</td>
+                                        <td>: {filament.weight_orig} g</td>
+                                        <EditFilament id={id} fieldName={"weight_orig"}/>
                                     </tr>
                                     <tr>
                                         <td>Cena</td>
                                         <td>: {(filament.price || 0).toFixed(2)} €</td>
-                                        <EditFilament/>
+                                        <EditFilament id={id} fieldName={"price"}/>
                                     </tr>
                                     {
                                         filament.weight_orig !== 1000 && <tr>
                                             <td>Cena za 1kg</td>
                                             <td>: {(filament.price / (filament.weight_orig / 1000)).toFixed(2)} €/kg</td>
-                                            <EditFilament/>
                                         </tr>
                                     }
                                     </tbody>
@@ -135,7 +139,6 @@ function Filament() {
             }
         </div>
     )
-
 }
 
 export default Filament;

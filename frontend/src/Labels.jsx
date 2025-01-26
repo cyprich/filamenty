@@ -11,7 +11,7 @@ function Labels() {
     const [filaments, setfilaments] = useState([])
 
     useEffect(() => {
-        axios.get(`http://${IP}:5000/api/filaments`)
+        axios.get(`http://${IP}:5000/api/filaments/`)
             .then((response) => {
                 setfilaments(response.data.filaments)
             })

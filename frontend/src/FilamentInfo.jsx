@@ -1,7 +1,5 @@
-import PropTypes from "prop-types";
-
 function FilamentInfo({item}) {
-   return (
+    return (
        <table className={"filament-info"}>
            <tbody>
            <tr>
@@ -27,20 +25,5 @@ function FilamentInfo({item}) {
            </tbody>
        </table>)
 }
-
-FilamentInfo.propTypes = {
-    item: PropTypes.arrayOf(PropTypes.shape({
-        price: PropTypes.number.isRequired,
-        weight: PropTypes.number.isRequired,
-        weight_orig: PropTypes.number.isRequired,
-        weight_spool: PropTypes.number.isRequired,
-        temp_min: PropTypes.number.isRequired,
-        temp_max: PropTypes.number.isRequired,
-        temp_bed_min: PropTypes.number.isRequired,
-        temp_bed_max: PropTypes.number,
-    })).isRequired
-};
-
-
 
 export default FilamentInfo

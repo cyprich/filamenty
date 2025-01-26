@@ -2,7 +2,6 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
-import FilamentInfo from "./FilamentInfo.jsx";
 import config from "./config.json"
 
 function Filaments() {
@@ -12,7 +11,7 @@ function Filaments() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://${IP}:5000/api/filaments`)
+        axios.get(`http://${IP}:5000/api/filaments/`)
             .then((response) => {
                 setfilaments(response.data.filaments)
             })
@@ -27,9 +26,9 @@ function Filaments() {
                 {filaments.map((item, key) => {
                     return (
                         <div key={key} className={"filaments-item custom-border"} style={{
-                            filter: `grayscale(${item.weight === 0 ? "100" : "0"}) opacity(${item.weight === 0 ? "0.5" : "1"})`,
-                            borderWidth: `${item.weight === 0 ? "0" : ""}`,
-                            scale: `${item.weight === 0 ? "0.9" : "1"}`
+                            filter: `grayscale(${item.weight <= item.weight_spool ? "0.5" : "0"}) opacity(${item.weight <= item.weight_spool ? "0.5" : "1"})`,
+                            borderWidth: `${item.weight <= item.weight_spool ? "0" : ""}`,
+                            scale: `${item.weight <= item.weight_spool ? "0.9" : "1"}`
                         }}>
                             <img
                                 style={{width: "100%", aspectRatio: "auto", borderRadius: "inherit", cursor: "pointer"}}
@@ -43,7 +42,7 @@ function Filaments() {
                                 }}>{Math.max(item.weight - item.weight_spool, 0)} g left</p>
                                 <div style={{
                                     // width: "90%",
-                                    width: `${(item.weight - item.weight_spool) / item.weight_orig * 100}%`,
+                                    width: `${Math.min((item.weight - item.weight_spool) / item.weight_orig, item.weight_orig) * 0.8 * 100}%`,
                                     height: "4px",
                                     background: `linear-gradient(to right, ${item.color_hex}, ${item.color_second_hex || item.color_hex})`,
                                     marginBottom: "-8px"
@@ -56,7 +55,22 @@ function Filaments() {
                                 </div>
                                 <h3 style={{fontWeight: "500"}}>{item.material}</h3>
                                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "end"}}>
-                                    <FilamentInfo item={item}/>
+                                    <table className={"filament-info"}>
+                                        <tbody>
+                                        <tr>
+                                            <td>Temp</td>
+                                            <td> : {item.temp_min} - {item.temp_max} °C</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Bed</td>
+                                            <td> : {item.temp_bed_min} {item.temp_bed_max ? `- ${item.temp_bed_max}` : ""} °C</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Price</td>
+                                            <td> : {(item.price / (item.weight_orig / 1000)).toFixed(2)} €/kg</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                     <div className={"filaments-buttons"} style={{
                                         display: "flex",
                                         flexDirection: "column",

@@ -1,8 +1,9 @@
 import sqlite3
 from typing import Any
 
-from flask import Flask, jsonify, send_from_directory
-from flask_cors import CORS  # cross-origin resource sharing - for frontend
+from flask import Flask, jsonify, request, send_from_directory
+from flask_cors import CORS
+from werkzeug.wrappers import response  # cross-origin resource sharing - for frontend
 
 from generate_qrcodes import generate_qrcodes
 
@@ -80,8 +81,33 @@ def filament(id: int):
     return jsonify(filaments={fields[i]: resp[i] for i in range(len(fields))})
 
 
+# endpoint for editing filmaent info
+@app.route("/api/filaments/<int:id>/", methods=["PUT"])
+def filament_put(id: int):
+    conn = get_conn()
+    curs = conn.cursor()
+
+    if id > len(fields) + 1:
+        return {"error": "Filament index out of range"}, 404
+
+    data = request.get_json()
+    key = data["key"]  # ktora hodnota sa ide menit
+    value = data["value"]  # na aku hodnotu sa ide menit
+
+    curs.execute(f"UPDATE filaments SET {key} = ? WHERE id = ?", (value, id))
+    conn.commit()
+
+    curs.execute("SELECT * FROM filaments WHERE id = ?", (id,))
+    resp = curs.fetchone()
+
+    conn.close()
+
+    return jsonify(filaments={fields[i]: resp[i] for i in range(len(fields))})
+    # return {"message": f"Tried to perform PUT on filament {key}:{value}"}, 200
+
+
 # endpoint for getting images
-@app.route("/api/images/<path:filename>", methods=["GET"])
+@app.route("/api/images/<path:filename>/", methods=["GET"])
 def get_image(filename: str):
     return send_from_directory("images/", filename)
 
