@@ -3,7 +3,6 @@ from typing import Any
 
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
-from werkzeug.wrappers import response  # cross-origin resource sharing - for frontend
 
 from generate_qrcodes import generate_qrcodes
 
@@ -25,6 +24,7 @@ fields = (
     "temp_max",
     "temp_bed_min",
     "temp_bed_max",
+    "image_url",
 )
 
 
@@ -81,6 +81,31 @@ def filament(id: int):
     return jsonify(filaments={fields[i]: resp[i] for i in range(len(fields))})
 
 
+# # endpoint for adding filaments
+# @app.route("/api/filaments/", methods=["POST"])
+# def filament_post():
+#     conn = get_conn()
+#     curs = conn.cursor()
+#
+#     data = request.get_json()
+#
+#     # finding out what info user provided
+#     insert = []
+#     for i in fields:
+#         try:
+#             insert.append(data[i])
+#         except error:
+#             pass
+#
+#     return insert
+#
+#     curs.execute("""INSERT OR IGNORE into filaments(
+#
+#     )""")
+#
+#     return {}
+
+
 # endpoint for editing filmaent info
 @app.route("/api/filaments/<int:id>/", methods=["PUT"])
 def filament_put(id: int):
@@ -103,7 +128,6 @@ def filament_put(id: int):
     conn.close()
 
     return jsonify(filaments={fields[i]: resp[i] for i in range(len(fields))})
-    # return {"message": f"Tried to perform PUT on filament {key}:{value}"}, 200
 
 
 # endpoint for getting images

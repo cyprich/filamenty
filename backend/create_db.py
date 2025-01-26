@@ -1,6 +1,9 @@
+import json
+import os
 import sqlite3
 
-# create db with some data to start with
+# remove old db
+os.remove("filaments.db")
 
 # opening db
 conn = sqlite3.connect("filaments.db")
@@ -23,6 +26,7 @@ curs.execute("""
         temp_max INT, 
         temp_bed_min INT,
         temp_bed_max INT,
+        image_url TEXT,
         UNIQUE(vendor, material, color_hex)
     );
 """)
@@ -64,15 +68,8 @@ def add_filament(
     )
 
 
-# inserting the first filament manually with id 0
-conn.execute(
-    """INSERT OR IGNORE INTO filaments (
-    id,vendor, material, price, color_hex, color_second_hex, weight, weight_orig, weight_spool, temp_min, temp_max, temp_bed_min, temp_bed_max
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-    (0, "Bambu Lab", "PLA", 29.99, "#111", None, 0, 1000, 250, 190, 230, 45, 65),
-)
-
-# adding all remaining filaments with automatic id
+# adding filaments
+add_filament("Bambu Lab", "PLA", 29.99, "#111", None, 0, 1000, 250, 190, 230, 45, 65)
 add_filament(
     "Bambu Lab", "PLA", 29.99, "#c12e1f", None, 290, 1000, 250, 190, 230, 45, 65
 )
@@ -202,9 +199,21 @@ add_filament(
     "Filament PM", "PLA+", 12.99, "#a69281", None, 503, 500, 216, 190, 210, 60, None
 )
 
+# finding out server ip
+with open("config.json", "r") as file:
+    IP = json.load(file)["ip"]
+
+# inserting default image urls
+curs.execute("SELECT * FROM filaments")
+for i in curs.fetchall():
+    id = i[0]
+    curs.execute(
+        "UPDATE filaments SET image_url = ? WHERE id = ?",
+        (f"http://{IP}:5000/api/images/filaments/{id}.png", id),
+    )
+
 # comminting to db
 conn.commit()
-
 
 # showing the db
 curs.execute("SELECT * FROM filaments")

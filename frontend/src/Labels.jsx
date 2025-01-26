@@ -49,7 +49,7 @@ function Labels() {
                                 <div style={{display: "flex", flexDirection: "column", gap: "0px"}}>
                                     <h2>{item.material}
                                         <span className={"dimmed-text"}
-                                              style={{paddingLeft: "16px",}}>#{item.id + 1}</span>
+                                              style={{paddingLeft: "16px",}}>#{item.id}</span>
                                     </h2>
                                     <p>{item.vendor}</p>
                                 </div>

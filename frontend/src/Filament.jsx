@@ -12,7 +12,7 @@ function Filament() {
     const [responseCode, setResponseCode] = useState(0)
 
     useEffect(() => {
-        axios.get(`http://${IP}:5000/api/filaments/${id - 1}/`)
+        axios.get(`http://${IP}:5000/api/filaments/${id}/`)
             .then((response) => {
                 setfilament(response.data.filaments)
                 setResponseCode(response.status)
@@ -27,17 +27,17 @@ function Filament() {
                 responseCode === 200
                     ?
                     <>
-                        <img src={`http://${IP}:5000/api/images/filamenty/${filament.id}.png`}
+                        <img src={filament.image_url}
                              style={{width: "512px", height: "512px", border: "1px solid black", padding: "32px"}}
                              className={"custom-border"} alt=""/>
                         <div style={{width: "100%", display: "flex", flexDirection: "column", gap: "16px"}}>
                             <div style={{display: "flex", justifyContent: "space-between", alignItems: "end"}}>
                                 <div>
                                     <h1>{filament.vendor}<span style={{paddingLeft: "12px"}}
-                                                               className={"dimmed-text"}>#{filament.id + 1}</span></h1>
+                                                               className={"dimmed-text"}>#{filament.id}</span></h1>
                                     <h1 style={{fontWeight: 500}}>{filament.material}</h1>
                                 </div>
-                                <img src={`http://${IP}:5000/api/images/qr/${id - 1}.png`} alt=""
+                                <img src={`http://${IP}:5000/api/images/qr/${id}.png`} alt=""
                                      style={{height: "6em"}}/>
                             </div>
                             <div style={{

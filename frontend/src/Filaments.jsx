@@ -32,8 +32,8 @@ function Filaments() {
                         }}>
                             <img
                                 style={{width: "100%", aspectRatio: "auto", borderRadius: "inherit", cursor: "pointer"}}
-                                src={`http://${IP}:5000/api/images/filamenty/${item.id}.png`} alt=""
-                                onClick={() => navigate(`/filament/${item.id + 1}`)}/>
+                                src={item.image_url} alt=""
+                                onClick={() => navigate(`/filament/${item.id}`)}/>
                             <div
                                 style={{width: "100%", display: "flex", flexDirection: "column", alignItems: "center"}}>
                                 <p style={{
@@ -41,7 +41,6 @@ function Filaments() {
                                     paddingBottom: "4px"
                                 }}>{Math.max(item.weight - item.weight_spool, 0)} g left</p>
                                 <div style={{
-                                    // width: "90%",
                                     width: `${Math.min((item.weight - item.weight_spool) / item.weight_orig, item.weight_orig) * 0.8 * 100}%`,
                                     height: "4px",
                                     background: `linear-gradient(to right, ${item.color_hex}, ${item.color_second_hex || item.color_hex})`,
@@ -51,7 +50,7 @@ function Filaments() {
                             <div style={{width: "95%"}}>
                                 <div style={{display: "flex", justifyContent: "space-between"}}>
                                     <h2>{item.vendor}</h2>
-                                    <h2 className={"dimmed-text"}>#{item.id + 1}</h2>
+                                    <h2 className={"dimmed-text"}>#{item.id}</h2>
                                 </div>
                                 <h3 style={{fontWeight: "500"}}>{item.material}</h3>
                                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "end"}}>
@@ -78,7 +77,7 @@ function Filaments() {
                                         gap: "8px"
                                     }}>
                                         <img src={"./src/images/edit.png"} alt=""
-                                             onClick={() => navigate(`/filament/${item.id + 1}`)}/>
+                                             onClick={() => navigate(`/filament/${item.id}`)}/>
                                         <img src={"./src/images/delete.png"} alt=""/>
                                     </div>
                                 </div>

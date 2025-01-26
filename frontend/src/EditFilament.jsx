@@ -10,7 +10,7 @@ function EditFilament({id, fieldName, spoolWeight}) {
     function handleChange() {
         console.log(fieldName)
 
-        axios.put(`http://${IP}:5000/api/filaments/${id - 1}/`, {
+        axios.put(`http://${IP}:5000/api/filaments/${id}/`, {
             key: fieldName,
             value: ((fieldName === "weight" && spoolWeight > 0) ? value + spoolWeight : value)
         })

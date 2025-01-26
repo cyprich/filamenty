@@ -26,7 +26,7 @@ def generate_qrcodes():
 
     for i in curs.fetchall():
         # data inside QR code
-        DATA = f"http://{IP}:3000/filament/{i[0] + 1}"
+        DATA = f"http://{IP}:3000/filament/{i[0]}"
 
         # create qrcode
         qr = qrcode.QRCode(version=None, border=0)  # auto size, no padding
