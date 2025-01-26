@@ -12,7 +12,7 @@ function Header() {
             gap: "2em",
             color: "white"
         }}>
-            <img src="favicon.ico" alt="" style={{width: "3em", height: "auto", paddingRight: "1em"}} onClick={() => navigate("/")}/>
+            <img src={"/src/images/icon.png"} alt="" style={{width: "3em", height: "auto", paddingRight: "1em"}} onClick={() => navigate("/")}/>
             <p onClick={() => navigate("/")}>Domov</p>
             <p onClick={() => navigate("/stitky")}>Štítky</p>
         </header>
