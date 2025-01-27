@@ -10,7 +10,7 @@ https://pypi.org/project/qrcode/
 """
 
 
-def generate_qrcodes():
+def generate_qrcodes(id: int | None = None) -> None:
     # connect to db
     conn = sqlite3.connect("filaments.db")
     curs = conn.cursor()
@@ -21,11 +21,21 @@ def generate_qrcodes():
 
     # create directory if it doesnt exist
     DIRECTORY = "images/qr/"
-    os.removedirs(DIRECTORY)
     os.makedirs(DIRECTORY, exist_ok=True)
 
-    # get filaments from db and make qrcode for each one of them
-    curs.execute("SELECT * FROM filaments")
+    # removing old image/s and getting info for new image/s from db
+    if id is not None:
+        # id was specified => generating for specific filament
+        if os.path.exists(f"{DIRECTORY}/{id}.png"):
+            os.remove(f"{DIRECTORY}/{id}.png")
+
+        curs.execute("SELECT * FROM filaments WHERE id=?", (id,))
+    else:
+        # id wasnt specified => all files
+        for file in os.listdir(DIRECTORY):
+            os.remove(f"{DIRECTORY}/{file}")
+
+        curs.execute("SELECT * FROM filaments")
 
     for i in curs.fetchall():
         # data inside QR code
