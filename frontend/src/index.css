@@ -101,6 +101,31 @@ footer {
         font-style: italic;
         font-weight: 300;
     }
+
+    .icon {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 32px;
+        height: 32px;
+        margin: 48px;
+        padding: 16px;
+
+        border-radius: 50%;
+        filter: saturate(0);
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid black;
+
+        &:hover {
+            filter: saturate(1);
+            transform: scale(1.1);
+            border-color: #da0000;
+        }
+
+        &:active {
+            transform: scale(0.9);
+        }
+    }
 }
 
 .plus {
