@@ -36,7 +36,7 @@ function Filament() {
                 responseCode === 200
                     ?
                     <>
-                        <div className={"flex items-center gap-8"}>
+                        <div className={"flex items-center !gap-8"}>
                             <img className={"h-24"} src={`http://${IP}:5000/api/images/qr/${id}.png`} alt=""/>
                             <div>
                                 <div className={"flex gap-3"}>

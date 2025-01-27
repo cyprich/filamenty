@@ -20,7 +20,7 @@ h3 {
 }
 
 .main {
-    @apply px-20 py-20 min-h-256;
+    @apply px-20 py-20 min-h-256 gap-16;
 }
 
 .icon {

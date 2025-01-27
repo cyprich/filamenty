@@ -24,7 +24,7 @@ function Filaments() {
     }, [IP]);
 
     return (
-        <div className={"main flex flex-col items-center gap-16"}>
+        <div className={"main flex flex-col items-center"}>
             <h1>Filamenty</h1>
             <div className={"grid grid-cols-5 gap-8"}>
                 {filaments.map((item, key) => {
