@@ -33,7 +33,7 @@ function Filaments() {
                             `flex flex-col gap-4 items-center p-6 custom-border 
                             ${item.weight <= item.weight_spool ? "opacity-40 grayscale-25 border-none shadow-none!" : "border"}`
                         } key={key}>
-                            <img className={"clickable-small"} src={item.image_url} alt=""/>
+                            <img className={"clickable-small"} src={item.image_url} alt="" onClick={() => navigate(`/filament/${item.id}`)}/>
                             <div className={"w-full flex flex-col items-center gap-1"}>
                                 <p>{Math.max(item.weight - item.weight_spool, 0)} g left</p>
                                 <div className="h-1.5 rounded-full"

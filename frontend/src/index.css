@@ -20,7 +20,7 @@ h3 {
 }
 
 .main {
-    @apply px-32 py-16;
+    @apply px-20 py-20 min-h-256;
 }
 
 .icon {
@@ -44,13 +44,23 @@ div.custom-border {
     @apply rounded-tl-4xl rounded-br-4xl;
 
     img {
-       border-radius: inherit;
+        border-radius: inherit;
     }
 }
 
 .info-table {
     td:first-child {
         @apply pr-3;
+    }
+}
+
+.filament .info-table {
+    tr:nth-child(even) {
+        @apply bg-zinc-200;
+    }
+
+    td {
+        @apply px-4 py-4
     }
 }
 

@@ -31,125 +31,121 @@ function Filament() {
     }
 
     return (
-        <div className={"filament"}>
+        <div className={"main filament flex flex-col gap-8"}>
             {
                 responseCode === 200
                     ?
                     <>
-                        <img src={filament.image_url}
-                             style={{width: "512px", height: "512px", border: "1px solid black", padding: "32px"}}
-                             className={"custom-border"} alt=""/>
-                        <div style={{width: "100%", display: "flex", flexDirection: "column", gap: "16px"}}>
-                            <div style={{display: "flex", justifyContent: "space-between", alignItems: "end"}}>
-                                <div>
-                                    <h1>{filament.vendor}<span style={{paddingLeft: "12px"}}
-                                                               className={"dimmed-text"}>#{filament.id}</span></h1>
-                                    <h1 style={{fontWeight: 500}}>{filament.material}</h1>
-                                </div>
-                                <img src={`http://${IP}:5000/api/images/qr/${id}.png`} alt=""
-                                     style={{height: "6em"}}/>
-                            </div>
-                            <div style={{
-                                width: "100%",
-                                height: "4px",
-                                background: `linear-gradient(to right, ${filament.color_hex}, ${filament.color_second_hex || filament.color_hex})`
-                            }}/>
+                        <div className={"flex items-center gap-8"}>
+                            <img className={"h-24"} src={`http://${IP}:5000/api/images/qr/${id}.png`} alt=""/>
                             <div>
-                                <h2 style={{fontWeight: 400, paddingBottom: "0.5em"}}>Informácie</h2>
-                                <table className={"filament-info"}>
-                                    <tbody>
-                                    <tr>
-                                        <td>Minimálna teplota tlače</td>
-                                        <td>: {filament.temp_min} °C</td>
-                                        <EditFilament id={id} fieldName={"temp_min"}/>
-                                    </tr>
-                                    <tr>
-                                        <td>Maximálna teplota tlače</td>
-                                        <td>: {filament.temp_max} °C</td>
-                                        <EditFilament id={id} fieldName={"temp_max"}/>
-                                    </tr>
-                                    <tr>
-                                        <td>{filament.temp_bed_max ? "Minimálna t" : "T"}eplota podložky</td>
-                                        <td>: {filament.temp_bed_min} °C</td>
-                                        <EditFilament id={id} fieldName={"temp_bed_min"}/>
-                                    </tr>
-                                    {
-                                        filament.temp_bed_max && <tr>
-                                            <td>Maximálna teplota podložky</td>
-                                            <td>: {filament.temp_bed_max} °C</td>
-                                            <EditFilament id={id} fieldName={"temp_bed_max"}/>
-                                        </tr>
-                                    }
-                                    <tr>
-                                        <td><b>Zostávajúca hmotnosť</b></td>
-                                        <td><b>: {Math.max(filament.weight - filament.weight_spool, 0)} g</b></td>
-                                        <EditFilament id={id} fieldName={"weight_full"}
-                                                      additional_data={filament.weight_spool}/>
-                                    </tr>
-                                    <tr>
-                                        <td>Hmotnosť so spoolom</td>
-                                        <td>: {filament.weight} g</td>
-                                        <EditFilament id={id} fieldName={"weight"}/>
-                                    </tr>
-                                    <tr>
-                                        <td>Hmotnosť spoolu</td>
-                                        <td>: {filament.weight_spool} g</td>
-                                        <EditFilament id={id} fieldName={"weight_spool"}/>
-                                    </tr>
-                                    <tr>
-                                        <td>Pôvodná hmotnosť</td>
-                                        <td>: {filament.weight_orig} g</td>
-                                        <EditFilament id={id} fieldName={"weight_orig"}/>
-                                    </tr>
-                                    <tr>
-                                        <td>Cena</td>
-                                        <td>: {(filament.price || 0).toFixed(2)} €</td>
-                                        <EditFilament id={id} fieldName={"price"}/>
-                                    </tr>
-                                    {
-                                        filament.weight_orig !== 1000 && <tr>
-                                            <td>Cena za 1kg</td>
-                                            <td>: {(filament.price / (filament.weight_orig / 1000)).toFixed(2)} €/kg</td>
-                                            <EditFilament id={id} fieldName={"price_kg"}
-                                                          additional_data={filament.weight_orig}/>
-                                        </tr>
-                                    }
-                                    </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <td style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: "4px",
-                                            marginTop: "16px",
-                                            padding: "0",
-                                        }}
-                                            onClick={() => {
-                                                setShowDelete(true)
-                                            }}>
-                                            <img style={{width: "32px"}} src="/src/images/delete_red.png" alt=""/>
-                                            <p>Odstrániť</p>
-                                        </td>
-                                    </tr>
-                                    </tfoot>
-                                </table>
-                                <div>
+                                <div className={"flex gap-3"}>
+                                    <h2 className={"!text-3xl font-bold"}>{filament.vendor}</h2>
+                                    <h2 className={"!text-3xl font-extralight"}>#{filament.id}</h2>
                                 </div>
+                                <h2 className={"font-medium"}>{filament.material}</h2>
                             </div>
-                            {showDelete && <DeleteFilament id={filament.id} image_url={filament.image_url} setShowDelete={setShowDelete}/>}
+                        </div>
+                        <div
+                            style={{background: `linear-gradient(to right, ${filament.color_hex}, ${filament.color_second_hex || filament.color_hex})`}}
+                            className={"w-full h-1 rounded-full -mt-2"}
+                        />
+                        <div className={"flex gap-16"}>
+                            <img src={filament.image_url} className={"border custom-border w-128 h-128 p-8"} alt=""/>
+                            <div className={"w-full flex flex-col gap-4"}>
+                                <div className={"flex flex-col gap-3"}>
+                                    <h2>Informácie</h2>
+                                    <table className={"info-table w-max"}>
+                                        <tbody>
+                                        <tr>
+                                            <td>Minimálna teplota tlače</td>
+                                            <td>{filament.temp_min} °C</td>
+                                            <EditFilament id={id} fieldName={"temp_min"}/>
+                                        </tr>
+                                        <tr>
+                                            <td>Maximálna teplota tlače</td>
+                                            <td>{filament.temp_max} °C</td>
+                                            <EditFilament id={id} fieldName={"temp_max"}/>
+                                        </tr>
+                                        <tr>
+                                            <td>{filament.temp_bed_max ? "Minimálna t" : "T"}eplota podložky</td>
+                                            <td>{filament.temp_bed_min} °C</td>
+                                            <EditFilament id={id} fieldName={"temp_bed_min"}/>
+                                        </tr>
+                                        {
+                                            filament.temp_bed_max && <tr>
+                                                <td>Maximálna teplota podložky</td>
+                                                <td>{filament.temp_bed_max} °C</td>
+                                                <EditFilament id={id} fieldName={"temp_bed_max"}/>
+                                            </tr>
+                                        }
+                                        <tr>
+                                            <td><b>Zostávajúca hmotnosť</b></td>
+                                            <td><b>{Math.max(filament.weight - filament.weight_spool, 0)} g</b></td>
+                                            <EditFilament id={id} fieldName={"weight_full"}
+                                                          additional_data={filament.weight_spool}/>
+                                        </tr>
+                                        <tr>
+                                            <td>Hmotnosť so spoolom</td>
+                                            <td>{filament.weight} g</td>
+                                            <EditFilament id={id} fieldName={"weight"}/>
+                                        </tr>
+                                        <tr>
+                                            <td>Hmotnosť spoolu</td>
+                                            <td>{filament.weight_spool} g</td>
+                                            <EditFilament id={id} fieldName={"weight_spool"}/>
+                                        </tr>
+                                        <tr>
+                                            <td>Pôvodná hmotnosť</td>
+                                            <td>{filament.weight_orig} g</td>
+                                            <EditFilament id={id} fieldName={"weight_orig"}/>
+                                        </tr>
+                                        <tr>
+                                            <td>Cena</td>
+                                            <td>{(filament.price || 0).toFixed(2)} €</td>
+                                            <EditFilament id={id} fieldName={"price"}/>
+                                        </tr>
+                                        {
+                                            filament.weight_orig !== 1000 && <tr>
+                                                <td>Cena za 1kg</td>
+                                                <td>{(filament.price / (filament.weight_orig / 1000)).toFixed(2)} €/kg</td>
+                                                <EditFilament id={id} fieldName={"price_kg"}
+                                                              additional_data={filament.weight_orig}/>
+                                            </tr>
+                                        }
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <td style={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                                gap: "4px",
+                                                marginTop: "16px",
+                                                padding: "0",
+                                            }}
+                                                onClick={() => {
+                                                    setShowDelete(true)
+                                                }}>
+                                                <img style={{width: "32px"}} src="/src/images/delete_red.png" alt=""/>
+                                                <p>Odstrániť</p>
+                                            </td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                    <div>
+                                    </div>
+                                </div>
+                                {
+                                    showDelete &&
+                                    <DeleteFilament id={filament.id} image_url={filament.image_url}
+                                                    setShowDelete={setShowDelete}/>
+                                }
+                            </div>
                         </div>
                     </>
-                    : <div style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        gap: "8px",
-                        width: "100%",
-                        height: "100%"
-                    }}>
-                        <h1>Filament sa nenašiel</h1>
-                        <h2>:(</h2>
+                    : <div className={"flex flex-col justify-center gap-3 pt-32 text-center"}>
+                        <h2 className={"!text-4xl font-bold"}>Filament sa nenašiel</h2>
+                        <h2 className={"!text-3xl pb-2 font-semibold"}>:(</h2>
                         <p>Pravdepodobne ste zadali zlé číslo filamentu</p>
                     </div>
             }
