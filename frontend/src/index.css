@@ -124,7 +124,11 @@ div.custom-border {
 
 @media print {
     @page {
-        margin: 0
+        margin: 1cm;
+    }
+
+    body {
+        margin: 0;
     }
 
     header, footer {
@@ -133,5 +137,14 @@ div.custom-border {
 
     .no-print, .no-print * {
         display: none !important;
+    }
+
+    .no-break {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .main {
+        padding: 0 !important;
     }
 }

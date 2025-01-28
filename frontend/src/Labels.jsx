@@ -20,11 +20,13 @@ function Labels() {
 
     return (
         <div className={"main labels flex flex-col items-center gap-16 portrait:gap-8 portrait:!px-8"}>
-            <h1>Štítky</h1>
-            <div className={"grid grid-cols-4 gap-4 portrait:grid-cols-1"}>
+            <h1 className={"no-print"}>Štítky</h1>
+            <div className={"grid grid-cols-4 gap-4 print:grid-cols-2 portrait:grid-cols-1"}>
                 {filaments.map((item, key) => {
                     return (
-                        <div className={"flex justify-between items-center gap-8 w-max p-8 border portrait:gap-5 portrait:p-4"} key={key}>
+                        <div
+                            className={"no-break flex justify-between items-center gap-8 w-max p-8 border portrait:gap-5 portrait:p-4"}
+                            key={key}>
                             <div className={"flex flex-col gap-3 portrait:gap-1.5"}>
                                 <div className={"flex gap-3 items-center"}>
                                     <div
@@ -66,6 +68,9 @@ function Labels() {
                     )
                 })}
             </div>
+            <p className={"no-print clickable-small custom-border border -my-6 cursor-pointer px-16 py-5 shadow-lg bg-zinc-50 text-center portrait:-my-0 portrait:w-full"}
+               onClick={() => window.print()}>Tlačiť</p>
+            <p className={"no-print text-[0.9rem] -mt-4"}>Pre optimálny výsledok je potrebné <span className={"font-semibold"}>zapnúť tlačenie pozadia</span> (Print Backgrounds)</p>
         </div>
     );
 }
