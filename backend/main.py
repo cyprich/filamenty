@@ -60,11 +60,10 @@ def filaments():
     curs = conn.cursor()
 
     curs.execute("SELECT * FROM filaments")
-    resp = curs.fetchall()
 
     parsed_filaments: list[dict[str, Any]] = []
 
-    for row in resp:
+    for row in curs.fetchall():
         parsed_filaments.append({fields[i]: row[i] for i in range(len(fields))})
 
     conn.close()
@@ -76,10 +75,6 @@ def filaments():
 def filament(id: int):
     conn = get_conn()
     curs = conn.cursor()
-
-    # TODO do this better
-    # if id > len(fields) + 1:
-    #     return {"error": "Filament index out of range"}, 404
 
     curs.execute("SELECT * FROM filaments WHERE id=?", (id,))
     resp = curs.fetchone()
@@ -94,7 +89,7 @@ def filament(id: int):
 # endpoint for getting info about random filament
 @app.route("/api/filaments/random/", methods=["GET"])
 def filament_random():
-    # get all ids
+    # get all available filaments
     response = requests.get(f"http://{IP}:5000/api/info/")
 
     if response.status_code != 200:
@@ -113,6 +108,7 @@ def filament_post():
 
     data = {}
 
+    # add all provided data to "data" variable
     for i in range(len(fields)):
         try:
             data[fields[i]] = request.form.get(fields[i])
@@ -129,9 +125,10 @@ def filament_post():
     curs.execute(string, valid_values)
     conn.commit()
 
+    # find id of new added filament
     curs.execute(
-        "SELECT * FROM filaments WHERE vendor=? AND color_hex=?",
-        (data["vendor"], data["color_hex"]),
+        "SELECT * FROM filaments WHERE vendor=? AND material=? AND color_hex=?",
+        (data["vendor"], data["material"], data["color_hex"]),
     )
 
     id = curs.fetchone()[0]
@@ -151,7 +148,6 @@ def filament_post():
         generate_qrcodes(id)
 
     return requests.get(f"http://{IP}:5000/api/filaments/{id}/").json()
-    # return {"filaments": {}}
 
 
 # endpoint for editing filmaent info
@@ -160,12 +156,9 @@ def filament_put(id: int):
     conn = get_conn()
     curs = conn.cursor()
 
-    # if id > len(fields) + 1:
-    #     return {"error": "Filament index out of range"}, 404
-
     data = request.get_json()
-    key = data["key"]  # ktora hodnota sa ide menit
-    value = data["value"]  # na aku hodnotu sa ide menit
+    key = data["key"]  # which field is going to be changed
+    value = data["value"]  # new value
 
     curs.execute(f"UPDATE filaments SET {key} = ? WHERE id = ?", (value, id))
     conn.commit()
@@ -187,13 +180,16 @@ def filament_delete(id: int):
     curs.execute("SELECT * FROM filaments WHERE id = ?", (id,))
     resp = curs.fetchone()
 
+    # filament not in db
     if resp is None:
         return {"error": "Filament not found"}, 404
 
     curs.execute("DELETE FROM filaments WHERE id = ?", (id,))
     conn.commit()
 
-    for i in [".jpg", ".png"]:
+    # deleting image
+    # couldnt get image path from db from "image_url" because it could be fallback image which should not be deleted
+    for i in ["jpg", "png"]:
         try:
             os.remove(f"images/filaments/{id}.{i}")
         except Exception:
@@ -204,7 +200,7 @@ def filament_delete(id: int):
     return jsonify(filaments={fields[i]: resp[i] for i in range(len(fields))})
 
 
-# endpoint for info about filments in database
+# endpoint for general info in database
 @app.route("/api/info/", methods=["GET"])
 def info():
     conn = get_conn()
@@ -213,12 +209,15 @@ def info():
     curs.execute("SELECT * FROM filaments")
     data = curs.fetchall()
 
+    # ids of filaments in database
     ids = [i[0] for i in data]
 
     return {
-        "filament_count": len(data),
-        "ids": ids,
-        "invalid_ids": [i for i in range(len(data)) if i not in ids],
+        "filament_count": len(data),  # number of filaments
+        "ids": ids,  # valid filament ids
+        "invalid_ids": [
+            i for i in range(len(data)) if i not in ids
+        ],  # invalid filament ids
     }
 
 
