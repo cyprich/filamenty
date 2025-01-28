@@ -132,7 +132,7 @@ function AddFilament() {
                         <td>
                             <input type="color" onChange={(e) => setColor(e.target.value)} value={color}/>
                             <button
-                                className={"font-bold"}
+                                className={"clickable-small font-bold"}
                                 onClick={() => setToggleSecondColor(!toggleSecondColor)}>
                                 {toggleSecondColor ? "-" : "+"}
                             </button>
