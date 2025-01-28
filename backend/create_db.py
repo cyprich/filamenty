@@ -37,18 +37,18 @@ curs.execute("""
 
 # function for adding filaments to db
 def add_filament(
-        vendor: str,
-        material: str,
-        price: float,
-        color_hex: str,
-        color_second_hex: str | None,
-        weight: int,
-        weight_orig: int,
-        weight_spool: int,
-        temp_min: int,
-        temp_max: int,
-        temp_bed_min: int,
-        temp_bed_max: int | None,
+    vendor: str,
+    material: str,
+    price: float,
+    color_hex: str,
+    color_second_hex: str | None,
+    weight: int,
+    weight_orig: int,
+    weight_spool: int,
+    temp_min: int,
+    temp_max: int,
+    temp_bed_min: int,
+    temp_bed_max: int | None,
 ):
     conn.execute(
         """INSERT OR IGNORE INTO filaments (
@@ -200,10 +200,6 @@ add_filament(
 )
 add_filament(
     "Filament PM", "PLA+", 12.99, "#a69281", None, 503, 500, 216, 190, 210, 60, None
-)
-
-add_filament(
-    "Filament PM", "PLA+", 12.99, "#a69282", None, 503, 500, 216, 190, 210, 60, None
 )
 
 # finding out server ip
