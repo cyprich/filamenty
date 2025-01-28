@@ -87,7 +87,7 @@ function Filaments() {
                     <DeleteFilament id={deleteFilamentID} image_url={deleteFilamentURL} setShowDelete={setShowDelete}/>}
             </div>
             <div className={"border clickable-small custom-border px-32 py-8"} onClick={() => navigate("/novy")}>
-                <p className={"text-4xl font-light"}>+</p>
+                <p className={"text-4xl"}>+</p>
             </div>
         </div>
     )

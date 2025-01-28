@@ -19,6 +19,10 @@ h3 {
     font-size: 1.25rem;
 }
 
+button {
+    @apply bg-zinc-200;
+}
+
 .main {
     @apply px-20 py-20 min-h-256 gap-16;
 }
@@ -63,6 +67,33 @@ div.custom-border {
         @apply px-4 py-4
     }
 }
+
+.add-filament {
+    tr:nth-child(even) {
+        @apply bg-zinc-200;
+    }
+
+    td {
+        @apply pl-4;
+    }
+
+    td:has(input) {
+        @apply flex items-center gap-2 p-2;
+
+        button {
+            @apply w-10 h-10;
+        }
+    }
+
+    input {
+        @apply w-full p-1 outline-none
+    }
+
+    input:not([type="color"]) {
+        @apply border border-zinc-500;
+    }
+}
+
 
 /*p {*/
 /*    line-height: 1.4;*/
@@ -134,150 +165,9 @@ div.custom-border {
 /*    border-radius: 32px 0;*/
 /*}*/
 
-/*.custom-upload {*/
-/*    padding: 2em;*/
-/*    width: 36em;*/
-/*    height: 36em;*/
-/*    border: 1px solid black;*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-
-/*    input {*/
-/*        display: none;*/
-/*    }*/
-
-/*    label {*/
-/*        cursor: pointer;*/
-/*        !*background-color: rgb(245, 245, 245);*!*/
-/*        background-image: linear-gradient(45deg, #efefef, #dedede, #efefef);*/
-/*        border-radius: inherit;*/
-/*        width: 100%;*/
-/*        height: 100%;*/
-/*        display: flex;*/
-/*        justify-content: center;*/
-/*        align-items: center;*/
-/*        font-style: italic;*/
-/*        font-weight: 300;*/
-/*    }*/
-
-/*    .icon {*/
-/*        position: absolute;*/
-/*        bottom: 0;*/
-/*        right: 0;*/
-/*        width: 32px;*/
-/*        height: 32px;*/
-/*        margin: 48px;*/
-/*        padding: 16px;*/
-
-/*        border-radius: 50%;*/
-/*        filter: saturate(0);*/
-/*        background: rgba(255, 255, 255, 0.9);*/
-/*        border: 1px solid black;*/
-
-/*        &:hover {*/
-/*            filter: saturate(1);*/
-/*            transform: scale(1.1);*/
-/*            border-color: #da0000;*/
-/*        }*/
-
-/*        &:active {*/
-/*            transform: scale(0.9);*/
-/*        }*/
-/*    }*/
-/*}*/
-
-/*.plus {*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    padding: 1em 10em;*/
-/*    border: 1px solid black;*/
-/*    cursor: pointer;*/
-/*    user-select: none;*/
-
-/*    p {*/
-/*        font-size: 3em;*/
-/*        font-weight: 300;*/
-/*    }*/
-
-/*    &:hover {*/
-/*        background-color: #ddd;*/
-/*    }*/
-
-/*    &:active {*/
-/*        background-color: #ccc;*/
-/*    }*/
-/*}*/
-
-/*.clickable {*/
-/*    &:hover {*/
-/*        transform: scale(1.1);*/
-/*    }*/
-
-/*    &:active {*/
-/*        transform: scale(0.9);*/
-/*    }*/
-/*}*/
-
-/*.filaments-item {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    gap: 32px;*/
-/*    align-items: center;*/
-/*    border: 1px solid black;*/
-/*    padding: 24px;*/
-/*}*/
-
-/*.filaments-buttons img {*/
-/*    width: 28px;*/
-/*    height: auto;*/
-
-/*    &:hover {*/
-/*        transform: scale(1.15);*/
-
-/*        &:last-child {*/
-/*            content: url("./images/delete_red.png");*/
-/*        }*/
-/*    }*/
-
-/*    &:active {*/
-/*        transform: scale(0.9);*/
-/*    }*/
-/*}*/
-
 /*.filament-info td:first-child {*/
 /*    padding-right: 0.5em;*/
 /*}*/
-
-/*.filament {*/
-/*    display: flex;*/
-/*    gap: 40px;*/
-/*    padding: 6em 8em;*/
-/*    max-width: 90vw;*/
-/*    min-height: 70vh;*/
-
-/*    table {*/
-/*        border-collapse: collapse;*/
-
-/*        tbody {*/
-/*            tr:nth-child(even) {*/
-/*                background-color: #eee;*/
-/*            }*/
-
-/*            td {*/
-/*                padding: 12px;*/
-/*            }*/
-
-/*            img {*/
-/*                &:hover {*/
-/*                    transform: scale(1.1);*/
-/*                }*/
-
-/*                &:active {*/
-/*                    transform: scale(0.9);*/
-/*                }*/
-/*            }*/
-/*        }*/
 
 /*        tfoot {*/
 /*            cursor: pointer;*/
