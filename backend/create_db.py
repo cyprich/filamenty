@@ -37,18 +37,18 @@ curs.execute("""
 
 # function for adding filaments to db
 def add_filament(
-    vendor: str,
-    material: str,
-    price: float,
-    color_hex: str,
-    color_second_hex: str | None,
-    weight: int,
-    weight_orig: int,
-    weight_spool: int,
-    temp_min: int,
-    temp_max: int,
-    temp_bed_min: int,
-    temp_bed_max: int | None,
+        vendor: str,
+        material: str,
+        price: float,
+        color_hex: str,
+        color_second_hex: str | None,
+        weight: int,
+        weight_orig: int,
+        weight_spool: int,
+        temp_min: int,
+        temp_max: int,
+        temp_bed_min: int,
+        temp_bed_max: int | None,
 ):
     conn.execute(
         """INSERT OR IGNORE INTO filaments (
@@ -235,7 +235,6 @@ conn.commit()
 # showing the db
 curs.execute("SELECT * FROM filaments")
 [print(i) for i in curs.fetchall()]
-
 
 # close
 conn.close()
