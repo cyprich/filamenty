@@ -20,7 +20,7 @@ h3 {
 }
 
 button {
-    @apply bg-zinc-200;
+    @apply bg-zinc-200 px-4 py-2;
 }
 
 .main {
