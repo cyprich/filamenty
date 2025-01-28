@@ -80,16 +80,17 @@ function AddFilament() {
     }
 
     return (
-        <div className={"main add-filament flex"}>
-            <div className={"custom-border border w-[40rem] h-[40rem]"}>
-                <div className={"relative flex justify-center items-center p-8 w-full h-full"}>
+        <div className={"main add-filament flex gap-16 portrait:flex-col portrait:justify-center portrait:items-center portrait:text-center portrait:gap-8"}>
+            <h1 className={"hidden portrait:block"}>Nový filament</h1>
+            <div className={"custom-border border w-[40rem] h-[40rem] portrait:w-full portrait:h-auto portrait:!aspect-square"}>
+                <div className={"relative flex justify-center items-center p-8 w-full h-full portrait:p-6"}>
                     {
                         imagePreview !== null
                             ? <>
-                                <img className={"absolute object-contain w-full h-full p-8 drop-shadow-xl"}
+                                <img className={"absolute object-contain w-full h-full p-8 drop-shadow-xl portrait:p-4"}
                                      src={imagePreview} alt=""/>
                                 <img
-                                    className={"clickable absolute bottom-0 right-0 m-4 h-14 w-14 p-3 border drop-shadow-lg !rounded-full bg-zinc-100/95"}
+                                    className={"clickable absolute bottom-0 right-0 m-4 h-14 w-14 p-3 border drop-shadow-lg !rounded-full bg-zinc-100/95 portrait:w-12 portrait:h-12"}
                                     src={"src/images/delete.png"}
                                     alt=""
                                     onClick={() => {
@@ -114,7 +115,7 @@ function AddFilament() {
                 </div>
             </div>
             <div className={"flex flex-col gap-8"}>
-                <h1>Nový filament</h1>
+                <h1 className={"portrait:hidden"}>Nový filament</h1>
                 <table>
                     <tbody>
                     <tr>
@@ -184,7 +185,7 @@ function AddFilament() {
                     </tr>
                     </tbody>
                 </table>
-                <div className={"flex gap-8 items-center"}>
+                <div className={"flex items-center gap-8 portrait:justify-center"}>
                     <button
                         className={"clickable-small w-max !px-16 !py-4"}
                         onClick={() => handleSubmit()}

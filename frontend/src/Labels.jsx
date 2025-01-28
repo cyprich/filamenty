@@ -19,24 +19,24 @@ function Labels() {
     }, [IP]);
 
     return (
-        <div className={"main flex flex-col items-center"}>
+        <div className={"main labels flex flex-col items-center gap-16 portrait:gap-8 portrait:!px-8"}>
             <h1>Štítky</h1>
-            <div className={"grid grid-cols-4 gap-4"}>
+            <div className={"grid grid-cols-4 gap-4 portrait:grid-cols-1"}>
                 {filaments.map((item, key) => {
                     return (
-                        <div className={"flex justify-between gap-8 w-max p-8 border"} key={key}>
-                            <div className={"flex flex-col gap-3"}>
+                        <div className={"flex justify-between items-center gap-8 w-max p-8 border portrait:gap-5 portrait:p-4"} key={key}>
+                            <div className={"flex flex-col gap-3 portrait:gap-1.5"}>
                                 <div className={"flex gap-3 items-center"}>
                                     <div
-                                        className={"w-12 h-12 rounded-full"}
+                                        className={"w-12 h-12 rounded-full portrait:w-8 portrait:h-8"}
                                         style={{backgroundImage: `linear-gradient(135deg, ${item.color_hex}, ${item.color_second_hex || item.color_hex})`}}
                                     />
                                     <div>
                                         <p className={"text-xl flex gap-4 justify-between leading-5"}>
-                                            <span className={"font-extrabold"}>{item.material}</span>
+                                            <span className={"font-extrabold portrait:font-bold"}>{item.material}</span>
                                             <span className={"font-extralight"}>#{item.id}</span>
                                         </p>
-                                        <p className={""}>{item.vendor}</p>
+                                        <p className={"portrait:!text-sm"}>{item.vendor}</p>
                                     </div>
                                 </div>
                                 <table className={"info-table"}>
@@ -57,7 +57,8 @@ function Labels() {
                                 </table>
                             </div>
                             <img
-                                className={"clickable-small w-32 h-32"} src={`http://${IP}:5000/api/images/qr/${item.id}.png/`}
+                                className={"clickable-small w-32 h-32 portrait:w-24 portrait:h-24"}
+                                src={`http://${IP}:5000/api/images/qr/${item.id}.png/`}
                                 onClick={() => navigate(`/filament/${item.id}`)}
                                 alt=""
                             />

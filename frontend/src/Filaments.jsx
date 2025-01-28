@@ -24,16 +24,16 @@ function Filaments() {
     }, [IP]);
 
     return (
-        <div className={"main flex flex-col items-center"}>
+        <div className={"main flex flex-col items-center gap-16"}>
             <h1>Filamenty</h1>
-            <div className={"grid grid-cols-5 gap-8"}>
+            <div className={"grid grid-cols-5 gap-8 portrait:grid-cols-1 "}>
                 {filaments.map((item, key) => {
                     return (
                         <div className={
                             `flex flex-col gap-4 items-center p-6 custom-border 
                             ${item.weight <= item.weight_spool ? "opacity-40 grayscale-25 border-none shadow-none!" : "border"}`
                         } key={key}>
-                            <img className={"clickable-small"} src={item.image_url} alt="" onClick={() => navigate(`/filament/${item.id}`)}/>
+                            <img className={"clickable-small w-full aspect-square object-cover"} src={item.image_url} alt="" onClick={() => navigate(`/filament/${item.id}`)}/>
                             <div className={"w-full flex flex-col items-center gap-1"}>
                                 <p>{Math.max(item.weight - item.weight_spool, 0)} g left</p>
                                 <div className="h-1.5 rounded-full"
@@ -86,7 +86,7 @@ function Filaments() {
                 {showDelete &&
                     <DeleteFilament id={deleteFilamentID} image_url={deleteFilamentURL} setShowDelete={setShowDelete}/>}
             </div>
-            <div className={"border clickable-small custom-border px-32 py-8"} onClick={() => navigate("/novy")}>
+            <div className={"clickable-small custom-border border px-32 py-8 portrait:py-6 portrait:w-full portrait:-mt-6 portrait:text-center"} onClick={() => navigate("/novy")}>
                 <p className={"text-4xl"}>+</p>
             </div>
         </div>
