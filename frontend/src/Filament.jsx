@@ -117,16 +117,17 @@ function Filament() {
                                         <tfoot>
                                         <tr>
                                             <td style={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                gap: "4px",
-                                                marginTop: "16px",
-                                                padding: "0",
+                                                // display: "flex",
+                                                // alignItems: "center",
+                                                // gap: "4px",
+                                                // marginTop: "16px",
+                                                // padding: "0",
                                             }}
+                                                className={"flex justify-center items-center gap-2 mt-2 cursor-pointer border rounded-lg border-red-600 hover:bg-red-600/10 select-none"}
                                                 onClick={() => {
                                                     setShowDelete(true)
                                                 }}>
-                                                <img style={{width: "32px"}} src="/src/images/delete_red.png" alt=""/>
+                                                <img className={"w-8 -ml-2"} src="/src/images/delete_red.png" alt=""/>
                                                 <p>Odstrániť</p>
                                             </td>
                                         </tr>
