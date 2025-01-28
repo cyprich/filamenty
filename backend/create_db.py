@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import json
 import os
 import sqlite3
 
@@ -203,8 +204,32 @@ add_filament(
     "Filament PM", "PLA+", 12.99, "#a69281", None, 503, 500, 216, 190, 210, 60, None
 )
 
-# setting image urls
-update_db_image_url(conn, curs)
+add_filament(
+    "Filament PM", "PLA+", 12.99, "#a69282", None, 503, 500, 216, 190, 210, 60, None
+)
+
+# finding out server ip
+with open("config.json", "r") as file:
+    IP = json.load(file)["ip"]
+
+# inserting image urls
+curs.execute("SELECT * FROM filaments")
+for i in curs.fetchall():
+    id = i[0]
+
+    filename = ""
+    possible_extensions = ["png", "jpg", "jpeg"]
+
+    # finding out if file exists, if so, it will be used
+    for ext in possible_extensions:
+        if os.path.exists(f"images/filaments/{id}.{ext}"):
+            filename = f"{id}.{ext}"
+            break
+
+    curs.execute(
+        "UPDATE filaments SET image_url = ? WHERE id = ?",
+        (f"http://{IP}:5000/api/images/filaments/{filename or 'unknown.png'}", id),
+    )
 
 # comminting to db
 conn.commit()
