@@ -15,70 +15,68 @@ filamenty
 <!--toc:start-->
 
 - [Filamenty](#filamenty)
-    - [Použité technológie](#použité-technológie)
-    - [Požiadavky a spúštanie aplikácie](#požiadavky-a-spúštanie-aplikácie)
-    - [Databáza](#databáza)
-        - [Štruktúra tabuľky `filaments`](#štruktúra-tabuľky-filaments)
-            - [Príklad záznamov](#príklad-záznamov)
-    - [API](#api)
-        - [`GET http://localhost:5000/api/`](#get-httplocalhost5000api)
-        - [`GET http://localhost:5000/api/filaments/`](#get-httplocalhost5000apifilaments)
-        - [`POST http://localhost:5000/api/filaments/`](#post-httplocalhost5000apifilaments)
-        - [`GET http://localhost:5000/api/filaments/<int:id>/`](#get-httplocalhost5000apifilamentsintid)
-        - [`PUT http://localhost:5000/api/filaments/<int:id>/`](#put-httplocalhost5000apifilamentsintid)
-        - [`DELETE http://localhost:5000/api/filaments/<int:id>/`](#delete-httplocalhost5000apifilamentsintid)
-        - [`GET http://locahost:5000/api/filaments/random/`](#get-httplocahost5000apifilamentsrandom)
-        - [`GET http://locahost:5000/api/info/`](#get-httplocahost5000apiinfo)
-    - [Použité zdroje](#použité-zdroje)
+  - [Použité technológie](#použité-technológie)
+  - [Požiadavky a spúštanie aplikácie](#požiadavky-a-spúštanie-aplikácie)
+  - [Databáza](#databáza)
+    - [Štruktúra tabuľky `filaments`](#štruktúra-tabuľky-filaments)
+      - [Príklad záznamov](#príklad-záznamov)
+  - [API](#api)
+    - [`GET http://localhost:5000/api/`](#get-httplocalhost5000api)
+    - [`GET http://localhost:5000/api/filaments/`](#get-httplocalhost5000apifilaments)
+    - [`POST http://localhost:5000/api/filaments/`](#post-httplocalhost5000apifilaments)
+    - [`GET http://localhost:5000/api/filaments/<int:id>/`](#get-httplocalhost5000apifilamentsintid)
+    - [`PUT http://localhost:5000/api/filaments/<int:id>/`](#put-httplocalhost5000apifilamentsintid)
+    - [`DELETE http://localhost:5000/api/filaments/<int:id>/`](#delete-httplocalhost5000apifilamentsintid)
+    - [`GET http://locahost:5000/api/filaments/random/`](#get-httplocahost5000apifilamentsrandom)
+    - [`GET http://locahost:5000/api/info/`](#get-httplocahost5000apiinfo)
+  - [Použité zdroje](#použité-zdroje)
   <!--toc:end-->
 
 ## Použité technológie
 
 - Backend
-    - Python - Hlavný programovací jazyk
-    - Flask - Webový framework na vytvorenie API a obsluhu požiadaviek
-    - SQLite - Databáza na uchovávanie informácií o filamentoch
-    - qrcode - Python knižnica na generovanie QR kódov
+  - Python - Hlavný programovací jazyk
+  - Flask - Webový framework na vytvorenie API a obsluhu požiadaviek
+  - SQLite - Databáza na uchovávanie informácií o filamentoch
+  - qrcode - Python knižnica na generovanie QR kódov
 - Frontend
-    - React a JavaScript - Tvorba dynamického používateľského rozhrania
-    - Tailwind CSS - CSS framework na vizuálne formátovanie webovej aplikácie
-    - Axios - Vykonávanie HTTP požiadaviek
+  - React a JavaScript - Tvorba dynamického používateľského rozhrania
+  - Tailwind CSS - CSS framework na vizuálne formátovanie webovej aplikácie
+  - Axios - Vykonávanie HTTP požiadaviek
 - Ostatné
-    - Docker a docker-compose - Kontajnerizácia pre jednoduchšie nasadenie aplikácie
+  - Docker a docker-compose - Kontajnerizácia pre jednoduchšie nasadenie aplikácie
 
 ## Požiadavky a spúštanie aplikácie
 
 1. Klonovanie Git repozitára
-    - Repozitár je verejne dostupný na [GitHub](https://github.com/cyprich/filamenty)
-    - Uistite sa, že máte nainštalovaný _git_, a spustite nasledovný príkaz
-        - `git clone https://github.com/cyprich/filamenty filamenty`
-    - Následne sa presuňte do priečinku klonovaného repozitára
-        - `cd filamenty`
+   - Repozitár je verejne dostupný na [GitHub](https://github.com/cyprich/filamenty)
+   - Uistite sa, že máte nainštalovaný _git_, a spustite nasledovný príkaz
+     - `git clone https://github.com/cyprich/filamenty filamenty`
+   - Následne sa presuňte do priečinku klonovaného repozitára
+     - `cd filamenty`
 1. Inštalácia potrebných balíčkov
-    - `docker`
-    - `docker-compose`
-    - Konkrétny príkaz na inštaláciu balíčkov závisí od vašej Linux distribúcie, napr.:
-        - `sudo apt install docker docker-compose` pre Ubunutu-based distribúcie
-        - `sudo pacman -Syu docker docker-compose` pre Arch-based distribúcie
+   - `docker`
+   - `docker-compose`
+   - Konkrétny príkaz na inštaláciu balíčkov závisí od vašej Linux distribúcie, napr.:
+     - `sudo apt install docker docker-compose` pre Ubunutu-based distribúcie
+     - `sudo pacman -Syu docker docker-compose` pre Arch-based distribúcie
 1. Spustenie systémových procesov pre Docker
-    - `sudo systemctl start docker`
-    - `sudo systemctl enable docker` - _nepovinné_ - automaticky spustí proces pri bootovaní zariadenia
+   - `sudo systemctl start docker`
+   - `sudo systemctl enable docker` - _nepovinné_ - automaticky spustí proces pri bootovaní zariadenia
 1. Pridanie používateľa do skupiny _docker_
-    - `sudo usermod -aG docker ${USER}`
+   - `sudo usermod -aG docker ${USER}`
 1. Používateľ sa musí odhlásiť a znova prihlásiť pre aplikovanie zmien
-1. Kroky pred prvým spustením na novom zariadení
-    - Nastavenie IP adresy
-        - Zistite IP adresu vášho zariadenia cez GUI (v nastaveniach) alebo pomocou príkazu `ip -c address`
-        - Spustite súbor _change_ip.sh_ príkazom `./change_ip.sh` a zadajte IP adresu vášho zariadenia
-        - IP adresa by mala vyzerať nejak takto: _192.168.1.100_
-    - _Nepovinné_ - naplnenie databázy počiatočnými hodnotami
-        - **Pozor!** - spustenie súboru vymaže všetky údaje v terajšej databáze bez možnosti návratu!
-        - Na spustenie súboru je potrebné mať nainštalovaný balíček _python3_
-        - `cd backend`
-        - `python3 create_db.py`
-        - `cd ..`
+1. Inicializácia pred prvým spustením na novom zariadení
+   - Inicializáciu je možné vykonať spustením súboru _init.sh_ príkazom `./init.sh`
+   - Vykonávajú sa tieto 2 kroky:
+     - Nastavenie IP adresy
+       - Zistite IP adresu vášho zariadenia cez GUI (v nastaveniach) alebo pomocou príkazu `ip -c address`
+       - IP adresa by mala vyzerať nejak takto: _192.168.1.100_
+     - _Nepovinné_ - naplnenie databázy počiatočnými hodnotami
+       - **Pozor!** - spustenie súboru vymaže všetky údaje v terajšej databáze bez možnosti návratu!
+       - Na spustenie súboru je potrebné mať nainštalovaný balíček _python3_
 1. Spustenie aplikácie pomocou súboru _run.sh_
-    - `./run.sh`
+   - `./run.sh`
 1. Príkazový riadok nechajte otvorený
 1. Aplikáciu zobrazíte vo webovom prehliadači na adrese `http://vaša_IP_adresa:3000` alebo `http://localhost:3000`
 1. Pre zastavenie aplikácie použite klávesovú skratku `ctrl + c` v príkazovom riadku
@@ -88,7 +86,7 @@ filamenty
 ### Štruktúra tabuľky `filaments`
 
 | Názov hodnoty      | Typ       | Popis                                                                                                               |
-|--------------------|-----------|---------------------------------------------------------------------------------------------------------------------|
+| ------------------ | --------- | ------------------------------------------------------------------------------------------------------------------- |
 | `id`               | `INTEGER` | Jednoznačný číselný identifikátor filamentu, určuje sa automaticky                                                  |
 | `vendor`           | `TEXT`    | Výrobca filamentu                                                                                                   |
 | `meterial`         | `TEXT`    | Materiál filamentu (napr. PLA, TPU)                                                                                 |
@@ -110,11 +108,11 @@ filamenty
 
 #### Príklad záznamov
 
-| id | vendor    | material | price | color_hex | color_second_hex | weight | weight_orig | weight_spool | temp_min | temp_max | temp_bed_min | temp_bed_max | image_url                                          |
-|----|-----------|----------|-------|-----------|------------------|--------|-------------|--------------|----------|----------|--------------|--------------|----------------------------------------------------|
-| 1  | Bambu Lab | PLA      | 29.99 | #111111   | NULL             | 290    | 1000        | 250          | 190      | 230      | 45           | 65           | [http://192.168.1.10/api/images/filaments/1.png]() |
-| 2  | eSun      | Silk PLA | 25.99 | #e41e95   | #123cea          | 876    | 1000        | 220          | 190      | 230      | 45           | 60           | [http://192.168.1.10/api/images/filaments/2.png]() |
-| 3  | Fiberlogy | TPU 40D  | 25.30 | #222222   | NULL             | 438    | 500         | 250          | 200      | 220      | 50           | 70           | [http://192.168.1.10/api/images/filaments/3.png]() |
+| id  | vendor    | material | price | color_hex | color_second_hex | weight | weight_orig | weight_spool | temp_min | temp_max | temp_bed_min | temp_bed_max | image_url                                          |
+| --- | --------- | -------- | ----- | --------- | ---------------- | ------ | ----------- | ------------ | -------- | -------- | ------------ | ------------ | -------------------------------------------------- |
+| 1   | Bambu Lab | PLA      | 29.99 | #111111   | NULL             | 290    | 1000        | 250          | 190      | 230      | 45           | 65           | [http://192.168.1.10/api/images/filaments/1.png]() |
+| 2   | eSun      | Silk PLA | 25.99 | #e41e95   | #123cea          | 876    | 1000        | 220          | 190      | 230      | 45           | 60           | [http://192.168.1.10/api/images/filaments/2.png]() |
+| 3   | Fiberlogy | TPU 40D  | 25.30 | #222222   | NULL             | 438    | 500         | 250          | 200      | 220      | 50           | 70           | [http://192.168.1.10/api/images/filaments/3.png]() |
 
 ## API
 
@@ -349,25 +347,15 @@ _Response_
 ```json
 {
   "filament_count": 15,
-  "ids": [
-    2,
-    4,
-    6,
-    7,
-    8
-  ],
-  "invalid_ids": [
-    1,
-    3,
-    5
-  ]
+  "ids": [2, 4, 6, 7, 8],
+  "invalid_ids": [1, 3, 5]
 }
 ```
 
 ## Použité zdroje
 
 | Popis                                                                    | Autor                                                                                             | Súbor                                                                | Link                                                                                                                                                                                                                       |
-|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Dokumentácia Python knižnice _qrcode_                                    | Lincoln Loop                                                                                      | `backend/generate_qrcodes.py` riadky 45 - 50                         | [https://pypi.org/project/qrcode/](https://pypi.org/project/qrcode/)                                                                                                                                                       |
 | Dokumentácia Tailwind CSS                                                | Tailwind Labs Inc.                                                                                | `frontend/src/Filaments.jsx` riadky 27 - 89                          | [https://tailwindcss.com/](https://tailwindcss.com/)                                                                                                                                                                       |
 | Článok _"How to use Axios With React"_                                   | Reed                                                                                              | `frontend/src/Filaments.jsx` riadky 18 - 24                          | [https://www.freecodecamp.org/news/how-to-use-axios-with-react/](https://www.freecodecamp.org/news/how-to-use-axios-with-react/)                                                                                           |
