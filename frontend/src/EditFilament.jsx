@@ -38,16 +38,15 @@ function EditFilament({id, fieldName, additional_data}) {
     }
 
     return (
-        <td style={{display: "flex", alignItems: "center"}}>
+        <td className={"flex items-center h-full"}>
             {
                 toggleEdit
-                    ? <div>
-                        <input type="number" onChange={(e) => setValue(Number(e.target.value))}/>
-                        {/*TODO zmenit na ikonky*/}
-                        <button onClick={() => handleChange()}>Potvrdiť</button>
-                        <button onClick={() => setToggleEdit(false)}>Zrušiť</button>
+                    ? <div className={"flex gap-4"}>
+                        <input className={"border rounded-xl p-1"} type="number" onChange={(e) => setValue(Number(e.target.value))}/>
+                        <button className={"clickable-small border"} onClick={() => handleChange()}>Potvrdiť</button>
+                        <button className={"clickable-small border"} onClick={() => setToggleEdit(false)}>Zrušiť</button>
                     </div>
-                    : <img style={{width: "20px", height: "auto"}} src={"/src/images/edit.png"} alt=""
+                    : <img className={"clickable w-6 h-6"} src={"/src/images/edit.png"} alt=""
                            onClick={() => setToggleEdit(!toggleEdit)}/>
             }
         </td>
