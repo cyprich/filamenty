@@ -24,70 +24,59 @@ function Filaments() {
     }, [IP]);
 
     return (
-        <div className={"main"}>
+        <div className={"main flex flex-col items-center"}>
             <h1>Filamenty</h1>
-            <div
-                style={{display: "grid", justifyContent: "center", gridTemplateColumns: "repeat(5, 1fr)", gap: "32px"}}>
+            <div className={"grid grid-cols-5 gap-8"}>
                 {filaments.map((item, key) => {
                     return (
-                        <div key={key} className={"filaments-item custom-border"} style={{
-                            filter: `grayscale(${item.weight <= item.weight_spool ? "0.5" : "0"}) opacity(${item.weight <= item.weight_spool ? "0.5" : "1"})`,
-                            borderWidth: `${item.weight <= item.weight_spool ? "0" : ""}`,
-                            scale: `${item.weight <= item.weight_spool ? "0.9" : "1"}`
-                        }}>
-                            <img
-                                style={{width: "100%", aspectRatio: "auto", borderRadius: "inherit", cursor: "pointer"}}
-                                src={item.image_url} alt=""
-                                onClick={() => navigate(`/filament/${item.id}`)}/>
-                            <div
-                                style={{width: "100%", display: "flex", flexDirection: "column", alignItems: "center"}}>
-                                <p style={{
-                                    width: "max-content",
-                                    paddingBottom: "4px"
-                                }}>{Math.max(item.weight - item.weight_spool, 0)} g left</p>
-                                <div style={{
-                                    width: `${Math.min((item.weight - item.weight_spool) / item.weight_orig, item.weight_orig) * 0.8 * 100}%`,
-                                    height: "4px",
-                                    background: `linear-gradient(to right, ${item.color_hex}, ${item.color_second_hex || item.color_hex})`,
-                                    marginBottom: "-8px"
-                                }}/>
+                        <div className={
+                            `flex flex-col gap-4 items-center p-6 custom-border 
+                            ${item.weight <= item.weight_spool ? "opacity-40 grayscale-25 border-none shadow-none!" : "border"}`
+                        } key={key}>
+                            <img className={"clickable-small"} src={item.image_url} alt="" onClick={() => navigate(`/filament/${item.id}`)}/>
+                            <div className={"w-full flex flex-col items-center gap-1"}>
+                                <p>{Math.max(item.weight - item.weight_spool, 0)} g left</p>
+                                <div className="h-1.5 rounded-full"
+                                     style={{
+                                         backgroundImage: `linear-gradient(to right, ${item.color_hex}, ${item.color_second_hex || item.color_hex})`,
+                                         width: `${Math.min((item.weight - item.weight_spool) / item.weight_orig, item.weight_orig) * 100}%`,
+                                     }}
+                                />
                             </div>
-                            <div style={{width: "95%"}}>
-                                <div style={{display: "flex", justifyContent: "space-between"}}>
-                                    <h2>{item.vendor}</h2>
-                                    <h2 className={"dimmed-text"}>#{item.id}</h2>
+                            <div className={"w-full flex flex-col gap-1"}>
+                                <div>
+                                    <div className={"flex justify-between"}>
+                                        <h2 className={"font-bold"}>{item.vendor}</h2>
+                                        <h2 className={"font-extralight"}>#{item.id}</h2>
+                                    </div>
+                                    <h3 className={"font-semibold"}>{item.material}</h3>
                                 </div>
-                                <h3 style={{fontWeight: "500"}}>{item.material}</h3>
-                                <div style={{display: "flex", justifyContent: "space-between", alignItems: "end"}}>
-                                    <table className={"filament-info"}>
+                                <div className={"flex justify-between"}>
+                                    <table className={"info-table"}>
                                         <tbody>
                                         <tr>
                                             <td>Temp</td>
-                                            <td> : {item.temp_min} - {item.temp_max} °C</td>
+                                            <td>: {item.temp_min} - {item.temp_max} °C</td>
                                         </tr>
                                         <tr>
                                             <td>Bed</td>
-                                            <td> : {item.temp_bed_min} {item.temp_bed_max ? `- ${item.temp_bed_max}` : ""} °C</td>
+                                            <td>: {item.temp_bed_min} {item.temp_bed_max ? `- ${item.temp_bed_max}` : ""} °C</td>
                                         </tr>
                                         <tr>
                                             <td>Price</td>
-                                            <td> : {(item.price / (item.weight_orig / 1000)).toFixed(2)} €/kg</td>
+                                            <td>: {(item.price / (item.weight_orig / 1000)).toFixed(2)} €/kg</td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <div className={"filaments-buttons"} style={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        alignItems: "end",
-                                        gap: "8px"
-                                    }}>
-                                        <img src={"./src/images/edit.png"} alt=""
+                                    <div className={"flex flex-col justify-end gap-1"}>
+                                        <img className={"icon clickable"} src={"./src/images/edit.png"} alt=""
                                              onClick={() => navigate(`/filament/${item.id}`)}/>
-                                        <img src={"./src/images/delete.png"} alt="" onClick={() => {
-                                            setShowDelete(true)
-                                            setDeleteFilamentID(item.id)
-                                            setDeleteFilamentURL(item.image_url)
-                                        }}/>
+                                        <img className={"icon clickable"} src={"./src/images/delete.png"} alt=""
+                                             onClick={() => {
+                                                 setShowDelete(true)
+                                                 setDeleteFilamentID(item.id)
+                                                 setDeleteFilamentURL(item.image_url)
+                                             }}/>
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +86,9 @@ function Filaments() {
                 {showDelete &&
                     <DeleteFilament id={deleteFilamentID} image_url={deleteFilamentURL} setShowDelete={setShowDelete}/>}
             </div>
-            <div className={"custom-border plus"} onClick={() => navigate("/novy")}><p>+</p></div>
+            <div className={"border clickable-small custom-border px-32 py-8"} onClick={() => navigate("/novy")}>
+                <p className={"text-4xl"}>+</p>
+            </div>
         </div>
     )
 }

@@ -23,7 +23,6 @@ function AddFilament() {
     const [image, setImage] = useState(null)
     const [imagePreview, setImagePreview] = useState(null)
 
-
     // text and number dependencies - required fields
     const [depsAreOK, setDepsAreOK] = useState(true)
     const textDeps = [vendor, material]
@@ -81,35 +80,40 @@ function AddFilament() {
     }
 
     return (
-        <div className={"filament add-filament"}>
-            <div>
-                <div className={"custom-upload custom-border"} style={{position: "relative"}}>
+        <div className={"main add-filament flex"}>
+            <div className={"custom-border border w-[40rem] h-[40rem]"}>
+                <div className={"relative flex justify-center items-center p-8 w-full h-full"}>
                     {
                         imagePreview !== null
                             ? <>
-                                <img src={imagePreview} alt="" style={{
-                                    width: "inherit",
-                                    height: "inherit",
-                                    objectFit: "contain",
-                                    borderRadius: "inherit"
-                                }}/>
-                                <img className={"icon"} src={"src/images/delete_red.png"} alt="" onClick={() => {
-                                    setImage(null)
-                                    setImagePreview(null)
-                                }}/>
+                                <img className={"absolute object-contain w-full h-full p-8 drop-shadow-xl"}
+                                     src={imagePreview} alt=""/>
+                                <img
+                                    className={"clickable absolute bottom-0 right-0 m-4 h-14 w-14 p-3 border drop-shadow-lg !rounded-full bg-zinc-100/95"}
+                                    src={"src/images/delete.png"}
+                                    alt=""
+                                    onClick={() => {
+                                        setImage(null)
+                                        setImagePreview(null)
+                                    }}
+                                />
                             </>
-                            : <label htmlFor="fileInput">Kliknutím zvoľte obrázok</label>
+                            : <label
+                                htmlFor="fileInput"
+                                className={"w-full h-full flex justify-center items-center cursor-pointer italic font-light bg-zinc-200 shadow-xl"}
+                            >Kliknutím zvoľte obrázok</label>
                     }
 
                     <input
                         type="file"
                         id={"fileInput"}
+                        className={"hidden"}
                         accept={"image/jpeg, image/png"}
                         onChange={(e) => handleImageChange(e)}
                     />
                 </div>
             </div>
-            <div style={{display: "flex", flexDirection: "column", gap: "2em"}}>
+            <div className={"flex flex-col gap-8"}>
                 <h1>Nový filament</h1>
                 <table>
                     <tbody>
@@ -128,6 +132,7 @@ function AddFilament() {
                         <td>
                             <input type="color" onChange={(e) => setColor(e.target.value)} value={color}/>
                             <button
+                                className={"clickable-small font-bold"}
                                 onClick={() => setToggleSecondColor(!toggleSecondColor)}>
                                 {toggleSecondColor ? "-" : "+"}
                             </button>
@@ -144,7 +149,8 @@ function AddFilament() {
                     <tr>
                         <td>Teplota tlače</td>
                         <td>
-                            <input type="number" onChange={(e) => setTempMin(e.target.value)} value={tempMin || ""}/> -
+                            <input type="number" onChange={(e) => setTempMin(e.target.value)} value={tempMin || ""}/>
+                            <p>-</p>
                             <input type="number" onChange={(e) => setTempMax(e.target.value)} value={tempMax || ""}/>
                         </td>
                     </tr>
@@ -152,7 +158,8 @@ function AddFilament() {
                         <td>Teplota podložky</td>
                         <td>
                             <input type="number" onChange={(e) => setTempBedMin(e.target.value)}
-                                   value={tempBedMin || ""}/> -
+                                   value={tempBedMin || ""}/>
+                            <p>-</p>
                             <input type="number" onChange={(e) => setTempBedMax(e.target.value)}
                                    value={tempBedMax || ""}/>
                         </td>
@@ -177,11 +184,14 @@ function AddFilament() {
                     </tr>
                     </tbody>
                 </table>
-                <div style={{display: "flex", gap: "2em", alignItems: "center"}}>
-                    <button style={{width: "max-content", padding: "1em 4em"}} onClick={() => handleSubmit()}>Potvrdiť
+                <div className={"flex gap-8 items-center"}>
+                    <button
+                        className={"clickable-small w-max !px-16 !py-4"}
+                        onClick={() => handleSubmit()}
+                    >Potvrdiť
                     </button>
                     {
-                        depsAreOK || <p style={{color: "red"}}>Prosím vyplňte všetky polia</p>
+                        depsAreOK || <p className={"text-red-600 font-medium"}>Prosím vyplňte všetky polia</p>
                     }
                 </div>
             </div>
