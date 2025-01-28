@@ -70,7 +70,7 @@ function Labels() {
             </div>
             <p className={"no-print clickable-small custom-border border -my-6 cursor-pointer px-16 py-5 shadow-lg bg-zinc-50 text-center portrait:-my-0 portrait:w-full"}
                onClick={() => window.print()}>Tlačiť</p>
-            <p className={"no-print text-[0.9rem] -mt-4"}>Pre optimálny výsledok je potrebné <span className={"font-semibold"}>zapnúť tlačenie pozadia</span> (Print Backgrounds)</p>
+            <p className={"no-print text-[0.9rem] -mt-4 text-center"}>Pre optimálny výsledok je potrebné <span className={"font-semibold"}>zapnúť tlačenie pozadia</span> (Print Backgrounds)</p>
         </div>
     );
 }
