@@ -94,54 +94,19 @@ div.custom-border {
     }
 }
 
+header p {
+    @apply text-zinc-50 font-medium decoration-0 p-2 cursor-pointer select-none
+}
 
-/*p {*/
-/*    line-height: 1.4;*/
-/*    display: inline-block;*/
-/*}*/
+footer {
+    h3, p, a {
+        @apply text-zinc-400 decoration-0 font-light;
+    }
 
-/*header {*/
-/*    p {*/
-/*        color: white;*/
-/*        text-decoration: none;*/
-/*        padding: 1em;*/
-/*        cursor: pointer;*/
-
-/*        &:hover {*/
-/*            transform: scale(1.1);*/
-/*            font-weight: 500;*/
-/*        }*/
-
-/*        &:active {*/
-/*            transform: scale(0.9);*/
-/*        }*/
-/*    }*/
-
-/*    img {*/
-/*        &:hover {*/
-/*            transform: scale(1.1);*/
-/*        }*/
-
-/*        &:active {*/
-/*            transform: scale(0.9);*/
-/*        }*/
-/*    }*/
-/*}*/
-
-/*footer {*/
-/*    p, h2, a {*/
-/*        color: #aaaaaa;*/
-/*        text-decoration: none;*/
-/*    }*/
-
-/*    h2 {*/
-/*        font-weight: 800;*/
-/*    }*/
-
-/*    p, a {*/
-/*        font-weight: 300;*/
-/*    }*/
-/*}*/
+    a:hover {
+        @apply text-zinc-300;
+    }
+}
 
 /*.main {*/
 /*    display: flex;*/

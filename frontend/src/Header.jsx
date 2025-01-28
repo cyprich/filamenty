@@ -4,17 +4,11 @@ function Header() {
     let navigate = useNavigate();
 
     return (
-        <header style={{
-            display: "flex",
-            alignItems: "center",
-            padding: "1.2em 3.6em",
-            backgroundColor: "black",
-            gap: "2em",
-            color: "white"
-        }}>
-            <img src={"/src/images/icon.png"} alt="" style={{width: "3em", height: "auto", paddingRight: "1em"}} onClick={() => navigate("/")}/>
-            <p onClick={() => navigate("/")}>Domov</p>
-            <p onClick={() => navigate("/stitky")}>Štítky</p>
+        <header className={"flex items-center gap-8 px-16 py-5 bg-zinc-950"}>
+            <img className={"clickable-small w-12 h-12 mr-4"} src={"/src/images/icon.png"} alt=""
+                 onClick={() => navigate("/")}/>
+            <p className={"clickable-small"} onClick={() => navigate("/")}>Filamenty</p>
+            <p className={"clickable-small"} onClick={() => navigate("/stitky")}>Štítky</p>
         </header>
     )
 }
