@@ -4,8 +4,6 @@ import json
 import os
 import sqlite3
 
-from update_db_image_url import update_db_image_url
-
 # remove old db if exists
 if os.path.exists("filaments.db"):
     os.remove("filaments.db")
