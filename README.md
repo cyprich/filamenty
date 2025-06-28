@@ -365,3 +365,16 @@ _Response_
 | Ikonka pre chýbajúci obrázok                                             | Vectorink                                                                                         | `backend/images/filaments/unknown.png`                               | [https://en.m.wikipedia.org/wiki/File:Icon-round-Question_mark.svg](https://en.m.wikipedia.org/wiki/File:Icon-round-Question_mark.svg)                                                                                     |
 | Ostatné použité ikonky                                                   | Ilham Fitroutul Hayat                                                                             | `frontend/src/images/edit.png` </br>`frontend/src/images/delete.png` | [https://www.flaticon.com/search?author_id=448&style_id=1223](https://www.flaticon.com/search?author_id=448&style_id=1223)                                                                                                 |
 | Obrázky filamentov                                                       | Bambu Lab EU </br>Plasty Mladeč </br>eSun </br>Majkl3D-Technology s.r.o. </br>Prusa Research a.s. | Všetky súbory v priečinku `backend/images/filaments`                 | [eu.store.bambulab.com](eu.store.bambulab.com) </br> [www.filament-pm.cz](www.filament-pm.cz) </br> [esun3dstoreeu.com](esun3dstoreeu.com) </br> [www.majkl3d.sk](www.majkl3d.sk) </br> [www.prusa3d.com](www.prusa3d.com) |
+
+---
+
+**Upozornenie**  
+
+Tento repozitár obsahuje moje riešenia zadaní, prípadne semestrálnej práce  
+Kód je zverejnený výhradne na vzdelávacie účely ako inšpirácia pre ostatných  
+**Použitie tohto kódu na odovzdanie ako vlastné riešenie (plagiátorstvo) je prísne zakázané** a môže viesť k disciplinárnym opatreniam  
+Ak si z tohto repozitára beriete inšpiráciu, uistite sa, že rozumiete riešeniam a vytvorte si vlastnú implementáciu  
+Autor nenesie zodpovednosť za akékoľvek následky vyplývajúce z nesprávneho použitia tohto materiálu, vrátane prípadných obvinení z plagiátorstva  
+
+---
+
