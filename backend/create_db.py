@@ -222,7 +222,7 @@ for i in curs.fetchall():
 
     curs.execute(
         "UPDATE filaments SET image_url = ? WHERE id = ?",
-        (f"http://{IP}:5000/api/images/filaments/{filename or 'unknown.png'}", id),
+        (f"http://{IP}:5000/api/v1/images/filaments/{filename or 'unknown.png'}", id),
     )
 
 # comminting to db
