@@ -21,14 +21,14 @@ filamenty
     - [Štruktúra tabuľky `filaments`](#štruktúra-tabuľky-filaments)
       - [Príklad záznamov](#príklad-záznamov)
   - [API](#api)
-    - [`GET http://localhost:5000/api/`](#get-httplocalhost5000api)
-    - [`GET http://localhost:5000/api/filaments/`](#get-httplocalhost5000apifilaments)
-    - [`POST http://localhost:5000/api/filaments/`](#post-httplocalhost5000apifilaments)
-    - [`GET http://localhost:5000/api/filaments/<int:id>/`](#get-httplocalhost5000apifilamentsintid)
-    - [`PUT http://localhost:5000/api/filaments/<int:id>/`](#put-httplocalhost5000apifilamentsintid)
-    - [`DELETE http://localhost:5000/api/filaments/<int:id>/`](#delete-httplocalhost5000apifilamentsintid)
-    - [`GET http://locahost:5000/api/filaments/random/`](#get-httplocahost5000apifilamentsrandom)
-    - [`GET http://locahost:5000/api/info/`](#get-httplocahost5000apiinfo)
+    - [`GET http://localhost:5000/api/v1/`](#get-httplocalhost5000api)
+    - [`GET http://localhost:5000/api/v1/filaments/`](#get-httplocalhost5000apifilaments)
+    - [`POST http://localhost:5000/api/v1/filaments/`](#post-httplocalhost5000apifilaments)
+    - [`GET http://localhost:5000/api/v1/filaments/<int:id>/`](#get-httplocalhost5000apifilamentsintid)
+    - [`PUT http://localhost:5000/api/v1/filaments/<int:id>/`](#put-httplocalhost5000apifilamentsintid)
+    - [`DELETE http://localhost:5000/api/v1/filaments/<int:id>/`](#delete-httplocalhost5000apifilamentsintid)
+    - [`GET http://locahost:5000/api/v1/filaments/random/`](#get-httplocahost5000apifilamentsrandom)
+    - [`GET http://locahost:5000/api/v1/info/`](#get-httplocahost5000apiinfo)
   - [Použité zdroje](#použité-zdroje)
   <!--toc:end-->
 
@@ -108,17 +108,17 @@ filamenty
 
 #### Príklad záznamov
 
-| id  | vendor    | material | price | color_hex | color_second_hex | weight | weight_orig | weight_spool | temp_min | temp_max | temp_bed_min | temp_bed_max | image_url                                          |
-| --- | --------- | -------- | ----- | --------- | ---------------- | ------ | ----------- | ------------ | -------- | -------- | ------------ | ------------ | -------------------------------------------------- |
-| 1   | Bambu Lab | PLA      | 29.99 | #111111   | NULL             | 290    | 1000        | 250          | 190      | 230      | 45           | 65           | [http://192.168.1.10/api/images/filaments/1.png]() |
-| 2   | eSun      | Silk PLA | 25.99 | #e41e95   | #123cea          | 876    | 1000        | 220          | 190      | 230      | 45           | 60           | [http://192.168.1.10/api/images/filaments/2.png]() |
-| 3   | Fiberlogy | TPU 40D  | 25.30 | #222222   | NULL             | 438    | 500         | 250          | 200      | 220      | 50           | 70           | [http://192.168.1.10/api/images/filaments/3.png]() |
+| id  | vendor    | material | price | color_hex | color_second_hex | weight | weight_orig | weight_spool | temp_min | temp_max | temp_bed_min | temp_bed_max | image_url                                             |
+| --- | --------- | -------- | ----- | --------- | ---------------- | ------ | ----------- | ------------ | -------- | -------- | ------------ | ------------ | ----------------------------------------------------- |
+| 1   | Bambu Lab | PLA      | 29.99 | #111111   | NULL             | 290    | 1000        | 250          | 190      | 230      | 45           | 65           | [http://192.168.1.10/api/v1/images/filaments/1.png]() |
+| 2   | eSun      | Silk PLA | 25.99 | #e41e95   | #123cea          | 876    | 1000        | 220          | 190      | 230      | 45           | 60           | [http://192.168.1.10/api/v1/images/filaments/2.png]() |
+| 3   | Fiberlogy | TPU 40D  | 25.30 | #222222   | NULL             | 438    | 500         | 250          | 200      | 220      | 50           | 70           | [http://192.168.1.10/api/v1/images/filaments/3.png]() |
 
 ## API
 
-Base URL: `http://localhost:5000/api/`
+Base URL: `http://localhost:5000/api/v1/`
 
-### `GET http://localhost:5000/api/`
+### `GET http://localhost:5000/api/v1/`
 
 Vráti uvítaciu správu od backendu
 
@@ -130,7 +130,7 @@ _Response_
 }
 ```
 
-### `GET http://localhost:5000/api/filaments/`
+### `GET http://localhost:5000/api/v1/filaments/`
 
 Vráti informácie o všetkých filamentoch
 
@@ -144,7 +144,7 @@ _Response_
       "color_hex": "#111",
       "color_second_hex": null,
       "id": 1,
-      "image_url": "http://192.168.1.10:5000/api/images/filaments/1.png",
+      "image_url": "http://192.168.1.10:5000/api/v1/images/filaments/1.png",
       "material": "PLA",
       "price": 29.99,
       "temp_bed_max": 65,
@@ -160,7 +160,7 @@ _Response_
       "color_hex": "#c12e1f",
       "color_second_hex": null,
       "id": 2,
-      "image_url": "http://192.168.1.10:5000/api/images/filaments/2.png",
+      "image_url": "http://192.168.1.10:5000/api/v1/images/filaments/2.png",
       "material": "PLA",
       "price": 29.99,
       "temp_bed_max": 65,
@@ -177,7 +177,7 @@ _Response_
 }
 ```
 
-### `POST http://localhost:5000/api/filaments/`
+### `POST http://localhost:5000/api/v1/filaments/`
 
 Pridá nový filament do databázy
 
@@ -206,7 +206,7 @@ _Response_
     "color_hex": "#ffffff",
     "color_second_hex": null,
     "id": 3,
-    "image_url": "http://192.168.1.10:5000/api/images/filaments/3.png",
+    "image_url": "http://192.168.1.10:5000/api/v1/images/filaments/3.png",
     "material": "XYZ",
     "price": 19.99,
     "temp_bed_max": 60,
@@ -221,7 +221,7 @@ _Response_
 }
 ```
 
-### `GET http://localhost:5000/api/filaments/<int:id>/`
+### `GET http://localhost:5000/api/v1/filaments/<int:id>/`
 
 Vráti informácie o konkrétnom filamente na základe `id`
 
@@ -233,7 +233,7 @@ _Response_
     "color_hex": "#73bab5",
     "color_second_hex": null,
     "id": 4,
-    "image_url": "http://192.168.1.10:5000/api/images/filaments/4.png",
+    "image_url": "http://192.168.1.10:5000/api/v1/images/filaments/4.png",
     "material": "PLA+",
     "price": 23.9,
     "temp_bed_max": null,
@@ -248,7 +248,7 @@ _Response_
 }
 ```
 
-### `PUT http://localhost:5000/api/filaments/<int:id>/`
+### `PUT http://localhost:5000/api/v1/filaments/<int:id>/`
 
 Aktualizuje informáciu o konkrétnom filamente na základe `id`
 
@@ -269,7 +269,7 @@ _Response_
     "color_hex": "#111111",
     "color_second_hex": null,
     "id": 1,
-    "image_url": "http://192.168.1.10:5000/api/images/filaments/1.png",
+    "image_url": "http://192.168.1.10:5000/api/v1/images/filaments/1.png",
     "material": "PLA",
     "price": 29.99,
     "temp_bed_max": 65,
@@ -284,7 +284,7 @@ _Response_
 }
 ```
 
-### `DELETE http://localhost:5000/api/filaments/<int:id>/`
+### `DELETE http://localhost:5000/api/v1/filaments/<int:id>/`
 
 Vymaže konkrétny filament na základe `id`
 
@@ -296,7 +296,7 @@ _Response_
     "color_hex": "#111111",
     "color_second_hex": null,
     "id": 1,
-    "image_url": "http://192.168.1.10:5000/api/images/filaments/1.png",
+    "image_url": "http://192.168.1.10:5000/api/v1/images/filaments/1.png",
     "material": "PLA",
     "price": 29.99,
     "temp_bed_max": 65,
@@ -311,7 +311,7 @@ _Response_
 }
 ```
 
-### `GET http://locahost:5000/api/filaments/random/`
+### `GET http://locahost:5000/api/v1/filaments/random/`
 
 Vráti informácie o filamente
 
@@ -323,7 +323,7 @@ _Response_
     "color_hex": "#111111",
     "color_second_hex": null,
     "id": 1,
-    "image_url": "http://192.168.1.10:5000/api/images/filaments/1.png",
+    "image_url": "http://192.168.1.10:5000/api/v1/images/filaments/1.png",
     "material": "PLA",
     "price": 29.99,
     "temp_bed_max": 65,
@@ -338,7 +338,7 @@ _Response_
 }
 ```
 
-### `GET http://locahost:5000/api/info/`
+### `GET http://locahost:5000/api/v1/info/`
 
 Vráti všeobecné informácie of filamentoch v databáze
 
@@ -368,13 +368,12 @@ _Response_
 
 ---
 
-**Upozornenie**  
+**Upozornenie**
 
 Tento repozitár obsahuje moje riešenia zadaní, prípadne semestrálnej práce  
 Kód je zverejnený výhradne na vzdelávacie účely ako inšpirácia pre ostatných  
 **Použitie tohto kódu na odovzdanie ako vlastné riešenie (plagiátorstvo) je prísne zakázané** a môže viesť k disciplinárnym opatreniam  
 Ak si z tohto repozitára beriete inšpiráciu, uistite sa, že rozumiete riešeniam a vytvorte si vlastnú implementáciu  
-Autor nenesie zodpovednosť za akékoľvek následky vyplývajúce z nesprávneho použitia tohto materiálu, vrátane prípadných obvinení z plagiátorstva  
+Autor nenesie zodpovednosť za akékoľvek následky vyplývajúce z nesprávneho použitia tohto materiálu, vrátane prípadných obvinení z plagiátorstva
 
 ---
-
